@@ -1,81 +1,174 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Registration and Login App</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<title>Bootstrap Simple Login Form with Blue Background</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style type="text/css">
 	
+    .form-control{
+		height: 41px;
+		background: #f2f2f2;
+		box-shadow: none !important;
+		border: none;
+	}
+	.form-control:focus{
+		background: #e2e2e2;
+	}
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+	.signup-form{
+		width: 35% ;
+		margin: 20px auto;
+	}
+	.signup-form form{
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form h2 {
+		color: #333;
+		font-weight: bold;
+        margin-top: 0;
+    }
+    .signup-form hr {
+        margin: 0 -30px 20px;
+    }    
+	.signup-form .form-group{
+		margin-bottom: 20px;
+	}
+	.signup-form input[type="checkbox"]{
+		margin-top: 3px;
+	}
+	.signup-form .row div:first-child{
+		padding-right: 10px;
+	}
+	.signup-form .row div:last-child{
+		padding-left: 10px;
+	}
+    .signup-form .btn{        
+        font-size: 16px;
+        font-weight: bold;
+		background: #3598dc;
+		border: none;
+		min-width: 140px;
+    }
+	.signup-form .btn:hover, .signup-form .btn:focus{
+		background: #2389cd !important;
+        outline: none;
+	}
+    .signup-form a{
+		color: #fff;
+		text-decoration: underline;
+	}
+	.signup-form a:hover{
+		text-decoration: none;
+	}
+	.signup-form form a{
+		color: #3598dc;
+		text-decoration: none;
+	}	
+	.signup-form form a:hover{
+		text-decoration: underline;
+	}
+    .signup-form .hint-text {
+		padding-bottom: 15px;
+		text-align: center;
+    }
+</style>
 </head>
 <body>
+<div class="signup-form" >
+    <form method="post">
+<!--		<h2>Login</h2>-->
+<!--	-->
+<!--		<hr>-->
+<!-- -->
+<!--        <div class="form-group">-->
+<!--&lt;!&ndash;            {% render_field form.login  type="text" class="form-control" placeholder="username"%}&ndash;&gt;-->
+<!--        </div>-->
+<!--      -->
+<!--		<div class="form-group">-->
+<!--      {% render_field form.password  type="password" class="form-control" placeholder="Password " %}-->
 
-	<!-- create navigation bar ( header) -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
-					Login Module</a>
-			</div>
-		</div>
-	</nav>
-	
-	<br>
-	<br>
-	<div class = "container">
-		<div class = "row">
-			<div class = "col-md-6 col-md-offset-3">
-				
-				<h1> User Login Page </h1>
-				<form th:action="@{/login}" method="post">
-					
-					<!-- error message -->
-					<div th:if="${param.error}">
-						<div class="alert alert-danger">Invalid username or
-							password.</div>
-					</div>
-				
-					<!-- logout message -->
-					<div th:if="${param.logout}">
-						<div class="alert alert-info">You have been logged out.</div>
-					</div>
-					
-					<div class = "form-group">
-						<label for ="username"> Username </label> :
-						<input type="text" class = "form-control" id ="username" name = "username"
-						placeholder="Enter Email ID" autofocus="autofocus">
-					</div>
-					
-					<div class="form-group">
-						<label for="password">Password</label>: <input type="password"
-							id="password" name="password" class="form-control"
-							placeholder="Enter Password" />
-					</div>
-					
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-6 col-sm-offset-3">
-								<input type="submit" name="login-submit" id="login-submit"
-									class="form-control btn btn-primary" value="Log In" />
-							</div>
-						</div>
-					</div>
-				</form>
-				<div class="form-group">
-						<span>New user? <a href="/" th:href="@{/registration}">Register
-								here</a></span>
-				</div>
-			</div>
-		</div>
-	</div>
+
+            <form th:action="@{/login}" method="post">
+                <h2>Login</h2>
+
+                <hr>
+
+                <!-- error message -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid username or
+                        password.</div>
+                </div>
+
+                <!-- logout message -->
+<!--                <div th:if="${param.logout}">-->
+<!--                    <div class="alert alert-info">You have been logged out.</div>-->
+<!--                </div>-->
+
+                <div class = "form-group">
+                    <label for ="username"> Username </label> :
+                    <input type="text" class = "form-control" id ="username" name = "username"
+                           placeholder="Enter Email ID" autofocus="autofocus">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>: <input type="password"
+                                                                   id="password" name="password" class="form-control"
+                                                                   placeholder="Enter Password" />
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-sm-6 col-sm-offset-3">-->
+<!--                            <input type="submit" name="login-submit" id="login-submit"-->
+<!--                                   class="form-control btn btn-primary" value="Log In" />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
+
+
+   
+<!--		</div>-->
+		<div class="form-group" style="align-content: center" >
+            <button type="submit" class="btn btn-primary btn-lg" style="float: center;width: 40%;margin: 2.5%">Login</button>
+       
+            <div class="btn btn-primary btn-lg" style="float: center;width: 40% ;margin: 2.5%"> <a href="/accounts/password/reset/" style="text-decoration : none;color :white;">Forgot Password?</a></div>
+    </div>
+    </form>
+    <hr />
+  <div class="hint-text">Don't have an account? <a href="/registration/" style="color: #333">signup here</a></div>
+<!--  {% if form.errors %}-->
+<!--  {% for field in form %}-->
+<!--      {% for error in field.errors %}-->
+<!--          <div class="alert alert-danger">-->
+<!--              <small>{{ error|escape }}</small>-->
+<!--          </div>-->
+<!--      {% endfor %}-->
+<!--  {% endfor %}-->
+
+<!--  {% for error in form.non_field_errors %}-->
+<!--      <div class="alert alert-danger">-->
+<!--          <small>{{ error|escape }}</small>-->
+<!--      </div>-->
+<!--  {% endfor %}-->
+<!--{% endif %}-->
+
+
+
+
+
+</div>
+
 </body>
-</html>
+
