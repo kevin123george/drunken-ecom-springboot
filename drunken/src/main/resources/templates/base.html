@@ -101,7 +101,7 @@
    
 <!--             User Login Info-->
 
-            <sec:authorize access="!isAuthenticated()">
+            <sec:authorize access="isAuthenticated()">
             <div class="user-login-info">
                     <a href="login"><img src="mg/core-img/login.svg" alt=""></a>
                 </div>
@@ -131,7 +131,7 @@
             </div>
             <sec:authorize access="isAuthenticated()">
             <div class="user-login-info">
-                    <a href="account_logout"><img src="img/core-img/logout.png" alt=""></a>
+                    <a href="logout"><img src="img/core-img/logout.png" alt=""></a>
                 </div>
             </sec:authorize>
         </div>

@@ -1,5 +1,6 @@
 package com.astra.drunken.controllers;
 
+import com.astra.drunken.services.BottleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +13,24 @@ import java.io.IOException;
 @Controller
 public class Index {
 
+    @Autowired
+    private BottleService bottleService;
+
     @GetMapping("/")
     String getIndex(Model model){
-//        model.addAttribute("productList");
-        return "index";
+        model.addAttribute("productList",bottleService.getAllBottles());
+        return "base";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login-page";
+        return "login";
+    }
+
+    @GetMapping("/{id}")
+    String productDetails(Model model,@PathVariable Long id){
+        model.addAttribute("product", bottleService.getProductById(id).get());
+        return "details-product";
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService{
 
+	@Autowired
 	private UserRepo userRepo;
 
 	@Autowired
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User save(User registrationDto) {
+		registrationDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
 		return userRepo.save(registrationDto);
 	}
 

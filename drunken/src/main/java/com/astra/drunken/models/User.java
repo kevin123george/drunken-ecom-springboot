@@ -25,6 +25,8 @@ public class User {
     @NotEmpty
     private String userName;
 
+    @NotNull
+    @NotEmpty
     private String password;
 
     // TODO: 19.11.22 add validation birthday: LocalDate(>1.1.1900, <today)
