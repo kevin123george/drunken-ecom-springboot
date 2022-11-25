@@ -101,18 +101,13 @@
    
 <!--             User Login Info-->
 
-            <sec:authorize access="isAuthenticated()">
-            <div class="user-login-info">
-                    <a href="login"><img src="mg/core-img/login.svg" alt=""></a>
-                </div>
 
-            </sec:authorize>
 
 
                 <sec:authorize access="isAuthenticated()">
-            <div class="user-login-info">
-                    <a href="/profile/"><img src="img/core-img/user.svg" alt=""></a>
-                </div>
+                    <div class="user-login-info">
+                        <a href="/profile/"><img src="img/core-img/user.svg" alt=""></a>
+                    </div>
                 </sec:authorize>
 
          
@@ -130,8 +125,13 @@
                 </a>
             </div>
             <sec:authorize access="isAuthenticated()">
-            <div class="user-login-info">
-                    <a href="logout"><img src="img/core-img/logout.png" alt=""></a>
+                <div class="user-login-info">
+                        <a href="logout"><img src="img/core-img/logout.png" alt=""></a>
+                </div>
+            </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <div class="user-login-info">
+                    <a href="login"><img src="mg/core-img/login.svg" alt=""></a>
                 </div>
             </sec:authorize>
         </div>
