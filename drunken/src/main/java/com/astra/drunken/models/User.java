@@ -3,6 +3,7 @@ package com.astra.drunken.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -30,6 +31,7 @@ public class User {
     private String password;
 
     // TODO: 19.11.22 add validation birthday: LocalDate(>1.1.1900, <today)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
