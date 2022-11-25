@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="shop_grid_product_area">
+
+
+                    <div class="row">
+                        <!-- Single Product -->
+                        <div class="col-12 col-sm-6 col-lg-4" th:each="product: ${productList}">
+                            <div class="single-product-wrapper">
+                                <!-- Product Image -->
+                                <div class="product-img" style="height:248px;">
+                                    <img th:src="${product.bottlePic}" alt="">
+                                    <!-- Hover Thumb -->
+                                    <img class="hover-img" th:src="${product.bottlePic}" alt="">
+
+                                    <!-- Product Badge -->
+                                    <!-- <div class="product-badge offer-badge">
+                                        <span>-30%</span>
+                                    </div> -->
+                                    <!-- Favourite -->
+
+                                </div>
+
+                                <!-- Product Description -->
+                                <div class="product-description">
+                                    <span th:text="${product.isAlcoholic}"></span>
+                                    <a ht:href="${product.id}">
+                                        <h6 th:text="${product.name}"></h6>
+                                    </a>
+                                    <p class="product-price" th:text="${product.price}">
+                                    </p>
+
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <!-- Add to Cart -->
+                                        <div class="add-to-cart-btn">
+                                            <a th:href="${product.id}" class="btn essence-btn">view</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                        {% empty %}-->
+<!--                        <h4>sorry !! nothing to show </h4>-->
+<!--                        {% endfor %}-->
+
+                    </div>
+                </div>
+
+            </div>
+<!--            <div class="pagination" style="">-->
+<!--                <ul style=" list-style: none;-->
+<!--                    padding: 0;-->
+<!--                    width: 400px;-->
+<!--                    margin: 0 auto;-->
+<!--                    text-align: center;-->
+<!--                     "-->
+
+<!--                >-->
+
+<!--                    {% if projects.has_previous %}-->
+<!--                    <li style="display:inline-flex ;border: solid gray ;padding: 2%;margin: 1%;border-width: thin"><a-->
+<!--                            href="?page={{ projects.previous_page_number }}" style="color:black"> < </a></li>-->
+<!--                    {% endif %}-->
+<!--                    {% for pg in projects.paginator.page_range %}-->
+<!--                    {% if projects.number == pg %}-->
+<!--                    <a href="?page={{ pg }}"-->
+<!--                       style="color:black;border: solid gray;padding: 2%;margin: 1%;border-width: thin">{{ pg }}</a>-->
+
+<!--                    {% endif %}-->
+<!--                    {% endfor %}-->
+<!--                    {% if projects.has_next %}-->
+<!--                    <li style="display:inline-flex;border: solid gray;padding: 2%;margin: 1%;border-width: thin"><a-->
+<!--                            href="?page={{ projects.next_page_number }}" style="color:black"> &nbsp > </a></li>-->
+<!--                    {% endif %}-->
+<!--                </ul>-->
+<!--    </section>-->
+</div>
+
+</body>
+</html>
