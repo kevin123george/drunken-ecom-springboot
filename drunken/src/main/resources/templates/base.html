@@ -3,7 +3,7 @@
 <!--{% load cart_template_tags %}-->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://wwww.thymeleaf.com">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
-  
+
 
 </head>
 <!-- <style>
@@ -38,16 +38,16 @@
           color: white;
         }
         </style> -->
-<body >
- <!-- ##### Header Area Start ##### -->
- <header class="header_area">
+<body>
+<!-- ##### Header Area Start ##### -->
+<header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
         <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
             <!-- Logo -->
             <a class="nav-brand" href="/">Drunken</a>
             <!-- Navbar Toggler -->
-      
+
             <!-- Menu -->
             <!-- <div class="classynav">
                 <ul>
@@ -86,47 +86,42 @@
                 </ul>
             </div> -->
         </nav>
-    </nav>
-        
+        </nav>
+
 
         <!-- Header Meta Data -->
         <div class="header-meta d-flex clearfix justify-content-end">
             <!-- Search Area -->
             <div class="search-area">
                 <form method="GET" action="home">
-                    <input type="text" name="q" id="id_q" placeholder="Type for search" >
+                    <input type="text" name="q" id="id_q" placeholder="Type for search">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>
-   
-<!--             User Login Info-->
+
+            <!--             User Login Info-->
 
 
+            <sec:authorize access="isAuthenticated()">
+                <div class="user-login-info">
+                    <a href="/profile/"><img src="img/core-img/user.svg" alt=""></a>
+                </div>
+            </sec:authorize>
 
 
-                <sec:authorize access="isAuthenticated()">
-                    <div class="user-login-info">
-                        <a href="/profile/"><img src="img/core-img/user.svg" alt=""></a>
-                    </div>
-                </sec:authorize>
-
-         
-
-
-
-
-         
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="/order-summary/" ><img src="img/core-img/bag.svg" alt="">
+                <a href="/order-summary/"><img src="img/core-img/bag.svg" alt="">
                     <sec:authorize access="isAuthenticated()">
-                        <strong><sec:authentication property="principal.username"/></strong>
+                        <strong>
+                            <sec:authentication property="principal.username"/>
+                        </strong>
                     </sec:authorize>
                 </a>
             </div>
             <sec:authorize access="isAuthenticated()">
                 <div class="user-login-info">
-                        <a href="logout"><img src="img/core-img/logout.png" alt=""></a>
+                    <a href="logout"><img src="img/core-img/logout.png" alt=""></a>
                 </div>
             </sec:authorize>
             <sec:authorize access="!isAuthenticated()">
@@ -148,43 +143,47 @@
     <!-- Cart Button -->
 
 
-   
 </div>
-<nav class="classy-navbar" id="essenceNav" >
-  
-        <div class="classy-navbar-toggler">
-            <span class="navbarToggler"><span></span><span></span><span></span></span>
+<nav class="classy-navbar" id="essenceNav">
+
+    <div class="classy-navbar-toggler">
+        <span class="navbarToggler"><span></span><span></span><span></span></span>
+    </div>
+    <!-- Menu -->
+    <div class="classy-menu">
+        <!-- close btn -->
+        <div class="classycloseIcon">
+            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
         </div>
-        <!-- Menu -->
-        <div class="classy-menu">
-            <!-- close btn -->
-            <div class="classycloseIcon">
-                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-            </div>
-            <!-- Nav Start -->
-            
-            <div class="classynav" id ="myDIV">
-                 
-                <ul>
+        <!-- Nav Start -->
 
-                    <li>Category</li>
-                    <li class="btn">
-                        <a class="nav-link" href="category-list">Sport wears</a>
-                    </li>
-                    <li class="btn">
-                        <a class="nav-link" href="category-list">Shirt</a>
-                    </li>
+        <div class="classynav" id="myDIV">
+
+            <ul>
+
+                <li>Category</li>
+                <li class="btn">
+                    <a class="nav-link" href="category-list">Sport wears</a>
+                </li>
+                <li class="btn">
+                    <a class="nav-link" href="category-list">Shirt</a>
+                </li>
 
 
-                </ul>
-       
-          
+            </ul>
+
+
         </div>
-            
-            <!-- Nav End -->
-        </div>
-    </nav>
 
+        <!-- Nav End -->
+    </div>
+</nav>
+
+
+<!-- Content Section -->
+<section layout:fragment="content">
+    <p>This is filled by the content template.</p>
+</section>
 <!--{% if messages %}-->
 
 <!--  {% for message in messages %}-->
@@ -197,7 +196,6 @@
 <!--      {% endfor %}-->
 
 
-
 <!--{% endif %}-->
 
 
@@ -207,25 +205,19 @@
 <!--{% endblock %}-->
 
 
+<!-- ##### Footer Area Start ##### -->
+<!-- <footer class="footer_area clearfix" style="">
 
-
-
-
-
-
-  <!-- ##### Footer Area Start ##### -->
-  <!-- <footer class="footer_area clearfix" style="">
-
-    <div class="col-md-12 text-center">
-                <p>
+  <div class="col-md-12 text-center">
+              <p>
 
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 
-                </p>
+              </p>
 
-       -->
+     -->
 
-    </div>
+</div>
 </footer>
 <!-- ##### Footer Area End ##### -->
 

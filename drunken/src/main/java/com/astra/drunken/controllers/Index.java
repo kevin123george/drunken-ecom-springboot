@@ -33,4 +33,17 @@ public class Index {
         return "details-product";
     }
 
+    @GetMapping("/add-random")
+    String addRandomProducts(Model model){
+        bottleService.addRandom();
+        return "exp";
+    }
+
+    @GetMapping("/index")
+    String index(Model model){
+        model.addAttribute("productList",bottleService.getAllBottles());
+        return "exp";
+    }
+
+
 }
