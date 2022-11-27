@@ -16,10 +16,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name =  "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

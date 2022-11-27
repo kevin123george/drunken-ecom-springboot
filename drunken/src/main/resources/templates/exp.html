@@ -47,48 +47,48 @@
                                     <div class="hover-content">
                                         <!-- Add to Cart -->
                                         <div class="add-to-cart-btn">
-                                            <a th:href="${product.id}" class="btn essence-btn">view</a>
+                                            <a th:href="@{/bottle/} +${product.id}" class="btn essence-btn">view</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-<!--                        {% empty %}-->
-<!--                        <h4>sorry !! nothing to show </h4>-->
-<!--                        {% endfor %}-->
+                        <!--                        {% empty %}-->
+                        <!--                        <h4>sorry !! nothing to show </h4>-->
+                        <!--                        {% endfor %}-->
 
                     </div>
                 </div>
 
             </div>
-<!--            <div class="pagination" style="">-->
-<!--                <ul style=" list-style: none;-->
-<!--                    padding: 0;-->
-<!--                    width: 400px;-->
-<!--                    margin: 0 auto;-->
-<!--                    text-align: center;-->
-<!--                     "-->
+            <!--            <div class="pagination" style="">-->
+            <!--                <ul style=" list-style: none;-->
+            <!--                    padding: 0;-->
+            <!--                    width: 400px;-->
+            <!--                    margin: 0 auto;-->
+            <!--                    text-align: center;-->
+            <!--                     "-->
 
-<!--                >-->
+            <!--                >-->
 
-<!--                    {% if projects.has_previous %}-->
-<!--                    <li style="display:inline-flex ;border: solid gray ;padding: 2%;margin: 1%;border-width: thin"><a-->
-<!--                            href="?page={{ projects.previous_page_number }}" style="color:black"> < </a></li>-->
-<!--                    {% endif %}-->
-<!--                    {% for pg in projects.paginator.page_range %}-->
-<!--                    {% if projects.number == pg %}-->
-<!--                    <a href="?page={{ pg }}"-->
-<!--                       style="color:black;border: solid gray;padding: 2%;margin: 1%;border-width: thin">{{ pg }}</a>-->
+            <!--                    {% if projects.has_previous %}-->
+            <!--                    <li style="display:inline-flex ;border: solid gray ;padding: 2%;margin: 1%;border-width: thin"><a-->
+            <!--                            href="?page={{ projects.previous_page_number }}" style="color:black"> < </a></li>-->
+            <!--                    {% endif %}-->
+            <!--                    {% for pg in projects.paginator.page_range %}-->
+            <!--                    {% if projects.number == pg %}-->
+            <!--                    <a href="?page={{ pg }}"-->
+            <!--                       style="color:black;border: solid gray;padding: 2%;margin: 1%;border-width: thin">{{ pg }}</a>-->
 
-<!--                    {% endif %}-->
-<!--                    {% endfor %}-->
-<!--                    {% if projects.has_next %}-->
-<!--                    <li style="display:inline-flex;border: solid gray;padding: 2%;margin: 1%;border-width: thin"><a-->
-<!--                            href="?page={{ projects.next_page_number }}" style="color:black"> &nbsp > </a></li>-->
-<!--                    {% endif %}-->
-<!--                </ul>-->
-<!--    </section>-->
-</div>
+            <!--                    {% endif %}-->
+            <!--                    {% endfor %}-->
+            <!--                    {% if projects.has_next %}-->
+            <!--                    <li style="display:inline-flex;border: solid gray;padding: 2%;margin: 1%;border-width: thin"><a-->
+            <!--                            href="?page={{ projects.next_page_number }}" style="color:black"> &nbsp > </a></li>-->
+            <!--                    {% endif %}-->
+            <!--                </ul>-->
+            <!--    </section>-->
+        </div>
 
 </body>
 </html>

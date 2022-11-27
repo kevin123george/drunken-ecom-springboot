@@ -23,7 +23,7 @@ public class Bottle {
     private Long id;
 
     @NotNull
-    @Pattern(regexp="^[A-Za-z-0-9]*$",message = "Invalid Input")
+    @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Invalid Input")
     private String name;
 
     @URL

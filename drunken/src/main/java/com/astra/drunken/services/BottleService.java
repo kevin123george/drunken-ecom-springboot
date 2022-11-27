@@ -24,7 +24,7 @@ public class BottleService {
         return bottleRepo.findById(id);
     }
 
-    public void addRandom(){
+    public void addRandom() {
         var bottle = new Bottle();
         bottle.setName(String.valueOf(UUID.randomUUID()));
         bottle.setInStock(34);
