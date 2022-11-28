@@ -2,12 +2,11 @@ package com.astra.drunken.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Reference;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
+
 
 @NoArgsConstructor
 @Data
@@ -28,4 +27,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private Boolean isActive = true;
 }

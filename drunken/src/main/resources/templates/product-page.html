@@ -1,0 +1,86 @@
+<!--Main layout-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>Welcome to Our Site</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5">
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <img src="{{ object.image.url }}" class="img-fluid" alt="">
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!--Content-->
+                    <div class="p-4">
+
+                        <div class="mb-3">
+                            <a href="">
+                                <span class="badge purple mr-1">sdfsdfsd </span>
+                            </a>
+
+                        </div>
+
+                        <p class="lead font-weight-bold">Availability : </p>
+
+                        <p class="lead">
+
+                            <span th:text="${product.price}"></span>
+
+
+                        </p>
+
+                        <p class="lead font-weight-bold">Description</p>
+
+                        <!--                        <p> {{ object.description }}</p>-->
+
+
+                        <!--                        {% if object.availabily == 'S' %}-->
+
+
+                        <a href="@{/basket/bottle/} +${product.id}" class="btn btn-primary btn-md my-0 p">Add to cart
+                            <i class="fas fa-shopping-cart ml-1"></i>
+                        </a>
+
+
+                        <a href="{% url 'remove-from-cart' object.slug %}" class="btn btn-danger btn-md my-0 p">Remove
+                            From cart
+                            <i class="fas fa-shopping-cart ml-1"></i>
+                        </a>
+
+                        <!--                        {% endif %}-->
+
+
+                    </div>
+                    <!--Content-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
+            <!--Grid row-->
+
+    </main>
+    <!--Main layout-->
+</div>
+
+</body>
+</html>

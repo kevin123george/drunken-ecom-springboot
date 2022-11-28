@@ -18,7 +18,7 @@ public class OrderItem {
     @PositiveOrZero
     private Double price;
 
-    @Pattern(regexp="^[0-9]*$",message = "Invalid Input")
+    @Pattern(regexp = "^[0-9]*$", message = "Invalid Input")
     private String position;
 
     @ManyToOne
