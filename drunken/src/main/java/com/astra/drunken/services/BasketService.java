@@ -34,12 +34,12 @@ public class BasketService {
         var user = userRepo.findByUserName(authentication.getName());
         var item = bottleService.getProductById(id);
         if (item.isPresent()) {
-            var order = orderRepo.findByUserAndIsActive(user, true);
+            var order = orderRepo.findByUserAndIsActive(user.get(), true);
             if (order.isPresent()) {
 
             } else {
                 var newOrder = new Order();
-                newOrder.setUser(user);
+                newOrder.setUser(user.get());
                 var orderItem = new OrderItem();
                 orderItem.setPrice(item.get().getPrice());
                 orderItem.setPosition(item.get().getName());
