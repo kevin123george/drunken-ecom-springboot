@@ -90,7 +90,7 @@
 </head>
 <body>
 <div class="signup-form">
-    <form th:action="@{/registration}" method="post" th:object="${user}">
+    <form th:action="@{/user/registration}" method="post" th:object="${user}">
         <div class="form-group">
             <label class="control-label" for="firstName"> User Name </label>
             <input id="firstName" class="form-control" th:field="*{userName}"

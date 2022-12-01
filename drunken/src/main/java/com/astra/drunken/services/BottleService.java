@@ -36,4 +36,8 @@ public class BottleService {
 
     }
 
+    public List<Bottle> productSearch(String q){
+        return bottleRepo.findByNameContaining(q);
+    }
+
 }

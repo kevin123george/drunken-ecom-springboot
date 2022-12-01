@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Bottle {
     @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Invalid Input")
     private String name;
 
-    @URL
+
     private String bottlePic;
 
     @Min(0)

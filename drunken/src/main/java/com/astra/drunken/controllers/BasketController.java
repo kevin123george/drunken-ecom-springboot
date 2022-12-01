@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/basket")
+@Controller("/basket")
 public class BasketController {
 
     private final BasketService basketService;
@@ -20,9 +20,9 @@ public class BasketController {
     }
 
 
-    @GetMapping("/add/bottle/{id}")
-    String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
-        basketService.addToBasket(authentication, id);
-        return "product-page";
-    }
+//    @GetMapping("/add/bottle/{id}")
+//    String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
+//        basketService.addBottleToOrder(authentication, id);
+//        return "product-page";
+//    }
 }
