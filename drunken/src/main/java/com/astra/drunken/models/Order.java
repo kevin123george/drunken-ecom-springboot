@@ -24,7 +24,7 @@ public class Order {
     @PositiveOrZero
     private Double price;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderBy("id ASC")
     private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 

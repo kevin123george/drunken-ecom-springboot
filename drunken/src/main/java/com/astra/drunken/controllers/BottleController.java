@@ -9,33 +9,37 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/bottle")
-public class ProductController {
+public class BottleController {
 
     private final BottleService bottleService;
     private final BasketService basketService;
 
     @Autowired
-    public ProductController(BottleService bottleService, BasketService basketService) {
+    public BottleController(BottleService bottleService, BasketService basketService) {
         this.bottleService = bottleService;
         this.basketService = basketService;
     }
 
     @GetMapping("/{id}")
     String productDetails(Authentication authentication, Model model, @PathVariable Long id) {
-//        basketService.addBottleToOrder(authentication, id);
-        model.addAttribute("product", bottleService.getProductById(id).get());
+        model.addAttribute("product", bottleService.getBottleTo(id));
         return "product-page";
     }
 
     @GetMapping("/add/{id}")
     String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
-        model.addAttribute("product", bottleService.getProductById(id).get());
+        model.addAttribute("product", bottleService.getBottleTo(id));
         basketService.addBottleToOrder(authentication, id);
         return "product-page";
+    }
+
+    @GetMapping("")
+    String getIndex(Model model) {
+        model.addAttribute("productList", basketService.getAllBottles());
+        return "exp";
     }
 
 

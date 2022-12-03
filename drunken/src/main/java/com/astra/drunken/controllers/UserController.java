@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("/registration")
     public String registerUserAccount(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/registration?success";
+        return "redirect:/user/login";
     }
 
     @GetMapping("/login")

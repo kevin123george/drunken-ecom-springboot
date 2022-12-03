@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -41,10 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
-                "/**",
-                        "/registration",
-                        "/user/login",
+                "/",
+                        "/user/*",
                         "/bottle/*",
+                        "/bottle",
+                        "/crate/*",
+                        "/crate",
                         "/index",
                         "/js/**",
                         "/css/**",
@@ -56,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
