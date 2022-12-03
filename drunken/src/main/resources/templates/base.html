@@ -102,33 +102,33 @@
             <!--             User Login Info-->
 
 
-            <sec:authorize access="isAuthenticated()">
+            <div sec:authorize="isAuthenticated()">
                 <div class="user-login-info">
-                    <a href="/profile/"><img src="/mg/core-img/user.svg" alt=""></a>
+                    <a href="/user/profile"><img src="/mg/core-img/user.svg" alt=""></a>
                 </div>
-            </sec:authorize>
+            </div>
 
 
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="/order-summary/"><img src="/mg/core-img/bag.svg" alt="">
-                    <sec:authorize access="isAuthenticated()">
-                        <strong>
-                            <sec:authentication property="principal.username"/>
-                        </strong>
-                    </sec:authorize>
+                <a href="/orders/order-summary/"><img src="/mg/core-img/bag.svg" alt="">
+<!--                    <div sec:authorize="isAuthenticated()">-->
+<!--                        <strong>-->
+<!--                            <span th:text="${#authentication.getPrincipal().getUsername()}"></span>-->
+<!--                        </strong>-->
+<!--                    </div>-->
                 </a>
             </div>
-            <sec:authorize access="isAuthenticated()">
+            <div sec:authorize="isAuthenticated()">
                 <div class="user-login-info">
-                    <a href="logout"><img src="/mg/core-img/logout.png" alt=""></a>
+                    <a href="/logout"><img src="/mg/core-img/logout.png" alt=""></a>
                 </div>
-            </sec:authorize>
-            <sec:authorize access="!isAuthenticated()">
+            </div>
+            <div sec:authorize="!isAuthenticated()">
                 <div class="user-login-info">
                     <a href="/user/login"><img src="/mg/core-img/login.svg" alt=""></a>
                 </div>
-            </sec:authorize>
+            </div>
         </div>
 
     </div>
@@ -163,10 +163,10 @@
 
                 <li>Category</li>
                 <li class="btn">
-                    <a class="nav-link" href="category-list">Sport wears</a>
+                    <a class="nav-link" href="/bottle">Bottles</a>
                 </li>
                 <li class="btn">
-                    <a class="nav-link" href="category-list">Shirt</a>
+                    <a class="nav-link" href="/crate">Crates</a>
                 </li>
 
 
