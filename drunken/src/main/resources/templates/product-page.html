@@ -18,7 +18,7 @@
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
 
-                    <img src="{{ object.image.url }}" class="img-fluid" alt="">
+                    <img th:src="${product.bottlePic}" class="img-fluid" alt="">
 
                 </div>
                 <!--Grid column-->
@@ -31,7 +31,7 @@
 
                         <div class="mb-3">
                             <a href="">
-                                <span class="badge purple mr-1">sdfsdfsd </span>
+                                <span th:text="${product.name}"class="badge purple mr-1"> </span>
                             </a>
 
                         </div>
@@ -53,7 +53,7 @@
                         <!--                        {% if object.availabily == 'S' %}-->
 
 
-                        <a href="@{/basket/bottle/} +${product.id}" class="btn btn-primary btn-md my-0 p">Add to cart
+                        <a th:href="@{/bottle/add/}+${product.id}" class="btn btn-primary btn-md my-0 p">Add to cart
                             <i class="fas fa-shopping-cart ml-1"></i>
                         </a>
 

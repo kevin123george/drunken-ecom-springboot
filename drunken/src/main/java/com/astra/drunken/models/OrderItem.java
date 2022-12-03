@@ -1,14 +1,17 @@
 package com.astra.drunken.models;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity
 public class OrderItem {
     @Id
@@ -24,5 +27,10 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public OrderItem(Order order) {
+        this.order = order;
+    }
+
 
 }

@@ -1,10 +1,13 @@
 package com.astra.drunken.services;
 
+import com.astra.drunken.controllers.DTOs.ProductResponseTO;
 import com.astra.drunken.models.Bottle;
 import com.astra.drunken.repositories.BottleRepo;
+import com.astra.drunken.utils.BEtoToConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,6 +37,15 @@ public class BottleService {
         bottle.setSupplier("astra drug");
         bottleRepo.save(bottle);
 
+    }
+
+    public List<Bottle> productSearch(String q){
+        return bottleRepo.findByNameContaining(q);
+    }
+
+    public ProductResponseTO getBottleTo(Long id){
+        var bottle = bottleRepo.findById(id);
+        return new ProductResponseTO(bottle.get());
     }
 
 }

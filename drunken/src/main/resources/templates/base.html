@@ -93,7 +93,7 @@
         <div class="header-meta d-flex clearfix justify-content-end">
             <!-- Search Area -->
             <div class="search-area">
-                <form method="GET" action="home">
+                <form method="GET" action="/search">
                     <input type="text" name="q" id="id_q" placeholder="Type for search">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
@@ -104,14 +104,14 @@
 
             <sec:authorize access="isAuthenticated()">
                 <div class="user-login-info">
-                    <a href="/profile/"><img src="/img/core-img/user.svg" alt=""></a>
+                    <a href="/profile/"><img src="/mg/core-img/user.svg" alt=""></a>
                 </div>
             </sec:authorize>
 
 
             <!-- Cart Area -->
             <div class="cart-area">
-                <a href="/order-summary/"><img src="/img/core-img/bag.svg" alt="">
+                <a href="/order-summary/"><img src="/mg/core-img/bag.svg" alt="">
                     <sec:authorize access="isAuthenticated()">
                         <strong>
                             <sec:authentication property="principal.username"/>
@@ -121,12 +121,12 @@
             </div>
             <sec:authorize access="isAuthenticated()">
                 <div class="user-login-info">
-                    <a href="logout"><img src="/img/core-img/logout.png" alt=""></a>
+                    <a href="logout"><img src="/mg/core-img/logout.png" alt=""></a>
                 </div>
             </sec:authorize>
             <sec:authorize access="!isAuthenticated()">
                 <div class="user-login-info">
-                    <a href="login"><img src="/mg/core-img/login.svg" alt=""></a>
+                    <a href="/user/login"><img src="/mg/core-img/login.svg" alt=""></a>
                 </div>
             </sec:authorize>
         </div>
@@ -233,6 +233,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script th:src="@{/js/classy-nav.min.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
+
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 
 </body>
 
