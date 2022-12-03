@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/crate",
                         "/index",
                         "/js/**",
+                        "/fonts/**",
                         "/css/**",
                         "/svg/**",
                         "/mg/**",

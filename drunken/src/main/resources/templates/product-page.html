@@ -53,7 +53,7 @@
                         <!--                        {% if object.availabily == 'S' %}-->
 
 
-                        <a th:href="@{/bottle/add/}+${product.id}" class="btn btn-primary btn-md my-0 p">Add to cart
+                        <a th:href="@{/}+${product.productType}+@{/add/}+${product.id}" class="btn btn-primary btn-md my-0 p">Add to cart
                             <i class="fas fa-shopping-cart ml-1"></i>
                         </a>
 

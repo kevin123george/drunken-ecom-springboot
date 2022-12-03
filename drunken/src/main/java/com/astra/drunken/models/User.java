@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -32,7 +33,7 @@ public class User {
 
     // TODO: 19.11.22 add validation birthday: LocalDate(>1.1.1900, <today)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    private Date birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")

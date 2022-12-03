@@ -23,53 +23,61 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${orderItems}">
+                <div th:if="${order != null}">
+                    <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${order.orderItems}">
 
-                    <td th:text="${product.position}"></td>
-                    <td th:text="${product.price}"></td>
-<!--                    <td>-->
-<!--                        <a href="{%  url 'remove-single-item-from-cart' order_item.item.slug %}"><i-->
-<!--                                class="fas  mr-2">-</i></a>-->
-<!--                        {{ order_item.quantity }}-->
-<!--                        <a href="{% url 'add-to-cart' order_item.item.slug %}"><i class="fas  ml-2">+</i></a>-->
-<!--                    </td>-->
-<!--                    <td th:text="${product.isAlcoholic}">-->
-<!--                        {% if order_item.item.discount_price %}-->
-<!--                        {{ order_item.get_total_discount_item_price }}-->
-<!--                        <span class="badge badge-primary">Saving {{ order_item.get_amount_saved }}</span>-->
-<!--                        {% else %}-->
-<!--                        {{ order_item.get_total_item_price }}-->
-<!--                        {% endif %}-->
-<!--                        <a style='color: red;' href="{% url 'remove-from-cart' order_item.item.slug %}">-->
-<!--                            <b class="fas  float-right">x</b>-->
-<!--                        </a>-->
-<!--                        <a href="#">-->
-<!--                            <span class="glyphicon glyphicon-remove" sdfsdf></span>-->
-<!--                        </a>-->
-<!--                    </td>-->
-                </tr>
+                        <td th:text="${product.position}"></td>
+                        <td th:text="${product.price}"></td>
+                        <!--                    <td>-->
+                        <!--                        <a href="{%  url 'remove-single-item-from-cart' order_item.item.slug %}"><i-->
+                        <!--                                class="fas  mr-2">-</i></a>-->
+                        <!--                        {{ order_item.quantity }}-->
+                        <!--                        <a href="{% url 'add-to-cart' order_item.item.slug %}"><i class="fas  ml-2">+</i></a>-->
+                        <!--                    </td>-->
+                        <!--                    <td th:text="${product.isAlcoholic}">-->
+                        <!--                        {% if order_item.item.discount_price %}-->
+                        <!--                        {{ order_item.get_total_discount_item_price }}-->
+                        <!--                        <span class="badge badge-primary">Saving {{ order_item.get_amount_saved }}</span>-->
+                        <!--                        {% else %}-->
+                        <!--                        {{ order_item.get_total_item_price }}-->
+                        <!--                        {% endif %}-->
+                        <!--                        <a style='color: red;' href="{% url 'remove-from-cart' order_item.item.slug %}">-->
+                        <!--                            <b class="fas  float-right">x</b>-->
+                        <!--                        </a>-->
+                        <!--                        <a href="#">-->
+                        <!--                            <span class="glyphicon glyphicon-remove" sdfsdf></span>-->
+                        <!--                        </a>-->
+                        <!--                    </td>-->
+                    </tr>
 
-                <tr>
-                    <td colspan='5'>Your cart is empty</td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <a class="btn essence-btn" href='/'>Continue shopping</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class='btn essence-btn float-right ml-2' th:href="@{'/orders/checkout/'}+${order.id}" target="_blank"
+                               style="margin: 1%">Proceed to checkout</a>
+                            <a class='btn essence-btn float-right' href='/' style="margin: 1%">Continue shopping</a>
+                        </td>
+                    </tr>
+                </div>
+
+
+<!--                <tr>-->
+<!--                    <td colspan="5">-->
+<!--                        <a class="btn essence-btn" href='/'>Continue shopping</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
 <!--                {% endfor %}-->
 <!--                {% load cart_template_tags %}-->
 
 <!--                {% if object.get_total > 0 %}-->
 
-                <tr>
-                    <td colspan="5">
-                        <a class='btn essence-btn float-right ml-2' href='/checkout/' target="_blank"
-                           style="margin: 1%">Proceed to checkout</a>
-                        <a class='btn essence-btn float-right' href='/' style="margin: 1%">Continue shopping</a>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td colspan="5">-->
+<!--                        <a class='btn essence-btn float-right ml-2' th:href="+@{/orders/checkout/}+${orderItems.orderId}" target="_blank"-->
+<!--                           style="margin: 1%">Proceed to checkout</a>-->
+<!--                        <a class='btn essence-btn float-right' href='/' style="margin: 1%">Continue shopping</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
 <!--                {% endif %}-->
                 </tbody>
             </table>
