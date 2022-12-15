@@ -45,28 +45,28 @@ public class BasketService {
         return order;
     }
 
-    public void addToBasket(Authentication authentication, Long id) {
-        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var user = userRepo.findByUserName(authentication.getName());
-        var item = bottleService.getProductById(id);
-        if (item.isPresent()) {
-            var order = orderRepo.findByUserAndIsActive(user.get(), true);
-            if (order.isPresent()) {
-
-            } else {
-                var newOrder = new Order();
-                newOrder.setUser(user.get());
-                var orderItem = new OrderItem();
-                orderItem.setPrice(item.get().getPrice());
-                orderItem.setPosition(item.get().getName());
-                Set<OrderItem> orderSet = new java.util.HashSet<>(Collections.emptySet());
-                orderSet.add(orderItem);
-                newOrder.setOrderItems(orderSet);
-                orderItem.setOrder(newOrder);
-                orderRepo.save(newOrder);
-            }
-        }
-    }
+//    public void addToBasket(Authentication authentication, Long id) {
+//        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        var user = userRepo.findByUserName(authentication.getName());
+//        var item = bottleService.getProductById(id);
+//        if (item.isPresent()) {
+//            var order = orderRepo.findByUserAndIsActive(user.get(), true);
+//            if (order.isPresent()) {
+//
+//            } else {
+//                var newOrder = new Order();
+//                newOrder.setUser(user.get());
+//                var orderItem = new OrderItem();
+//                orderItem.setPrice(item.get().getPrice());
+//                orderItem.setPosition(item.get().getName());
+//                Set<OrderItem> orderSet = new java.util.HashSet<>(Collections.emptySet());
+//                orderSet.add(orderItem);
+//                newOrder.setOrderItems(orderSet);
+//                orderItem.setOrder(newOrder);
+//                orderRepo.save(newOrder);
+//            }
+//        }
+//    }
 
 
     /**
@@ -75,21 +75,7 @@ public class BasketService {
      * @param authentication - the current authenticated user
      * @param bottleId       - opted bottle
      */
-    public void addBottleToOrder(Authentication authentication, Long bottleId) {
-        // TODO: 28/11/2022  move this to a consturtor
-        // TODO: 01/12/2022  checkc add to basket only adding one item ata a rime
 
-        var bottle = bottleService.getProductById(bottleId).get();
-        var user = userRepo.findByUserName(authentication.getName());
-        var order = orderService.getOrderByUserAndActive(user.get());
-        var orderItem = new OrderItem();
-        var orderItems = order.getOrderItems();
-        orderItem.setOrder(order);
-        orderItem.setPrice(bottle.getPrice());
-        orderItems.add(orderItem);
-        orderItemRepo.saveAll(orderItems);
-
-    }
 
     public void checkout(Long orderId) {
         var order = orderRepo.findById(orderId);

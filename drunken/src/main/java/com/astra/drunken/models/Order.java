@@ -1,12 +1,15 @@
 package com.astra.drunken.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,14 +26,14 @@ public class Order {
     private Long id;
 
     @PositiveOrZero
-    private Double price;
+    private Double price = 0.0;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @OrderBy("id ASC")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
     private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 //    cart is inactive when check out is completer

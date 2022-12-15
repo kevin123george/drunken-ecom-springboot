@@ -26,8 +26,13 @@ public class OrderItem {
     private String position;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
     private Order order;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "beverage_id", referencedColumnName = "id")
+    private Beverage beverage;
 
     public OrderItem(Order order) {
         this.order = order;

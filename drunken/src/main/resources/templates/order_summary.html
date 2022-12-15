@@ -25,13 +25,14 @@
 
                             <th scope="col">Item Position</th>
                             <th scope="col">Price</th>
+                            <th scope="col">#</th>
                             <!--                    <th scope="col">Quantity</th>-->
                             <!--                    <th scope="col">Total Item Price</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <div th:if="${order != null}">
-                            <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${order}">
+                            <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${order.orderItems}">
 
                                 <td th:text="${product.position}"></td>
                                 <td th:text="${product.price}"></td>
@@ -54,19 +55,15 @@
                                 <!--                        </a>-->
                                 <!--                    </td>-->
                             </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td th:text="${order.price}"></td>
+                            </tr>
 
                             <tr>
-<!--                                <td colspan="5">-->
-<!--                                    <a class='btn essence-btn float-right ml-2'-->
-<!--                                       th:href="@{'/orders/checkout/'}+${orderId} + @{'/summery'}"-->
-<!--                                       target="_blank"-->
-<!--                                       style="margin: 1%">Proceed to checkout</a>-->
-<!--                                    <a class='btn essence-btn float-right' href='/' style="margin: 1%">Continue-->
-<!--                                        shopping</a>-->
-<!--                                </td>-->
-
                                 <td colspan="5">
-                                    <a class="btn essence-btn float-left ml-2" th:href="@{'/orders/checkout/'}+${orderId}" style="">Proceed to checkout</a>
+                                    <a class="btn essence-btn float-left ml-2"
+                                       th:href="@{'/orders/checkout/'}+${order.id}" style="">Proceed to checkout</a>
                                     <a class="btn essence-btn float-right" href="/" style="">Continue
                                         shopping</a>
                                 </td>
@@ -101,7 +98,7 @@
             <div class="col-30" style="margin-left: 5%">
                 <div class="table-responsive text-nowrap">
                     <h2 style="margin-top: 1%">Shipping Address</h2>
-                    <div th:if= "${address?.street == null}">
+                    <div th:if="${address?.street == null}">
                         No address Found please add address
                         </br>
                         <a class="btn btn-primary py-3 px-5" href="/user/profile/add/address">add address</a>

@@ -20,7 +20,7 @@
             Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>
         </div>
         <div class="form-group"></div>
-        <a class="btn btn-primary py-3 px-5" href="/user/profile/edit">edit profile</a>
+        <a class="btn essence-btn ml-2" href="/user/profile/edit">edit profile</a>
     </div>
 
     <div style="margin-left: 10%">
@@ -29,7 +29,7 @@
         <div th:if= "${userInfo?.address == null}">
             No address Found please add address
             </br>
-            <a class="btn btn-primary py-3 px-5" href="/user/profile/add/address">add address</a>
+            <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
         </div>
         <div>
             Street : <span th:text="${userInfo.userName}"></span>
@@ -41,7 +41,7 @@
         <div>
             number : <span th:text="${userInfo.userName}"></span>
         </div>
-        <a class="btn btn-primary py-3 px-5" href="/user/profile/add/address">edit address</a>
+        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
 
         <br/>
 <!--        <div>-->

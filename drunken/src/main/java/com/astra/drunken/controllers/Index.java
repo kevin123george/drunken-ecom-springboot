@@ -32,6 +32,7 @@ public class Index {
 
     @GetMapping("/")
     String getIndex(Authentication authentication, Model model) {
+        bottleService.addRandom();
         if (authentication != null && authentication.isAuthenticated() & orderService.getOrderByUserAndActive(authentication).isPresent()) {
             model.addAttribute("haveActiveCart", true);
             model.addAttribute("itemCount", orderService.getOrderByUserAndActive(authentication).get().getOrderItems().size());

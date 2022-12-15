@@ -31,16 +31,9 @@ public class OrderController {
     }
 
     @GetMapping("/order-summary/")
-    String rderSummary(Authentication authentication, Model model) {
+    String orderSummary(Authentication authentication, Model model) {
         var order = orderService.getOrderByUserAndActive(authentication);
-        var orderItems =  Collections.<OrderItem>emptyList();
-
-        if (order.isPresent()){
-            orderItems = orderItemRepo.findByOrder(order.get());
-        }
-//        model.addAttribute("order", orderItems.orElse(null));
-        model.addAttribute("order", orderItems);
-        model.addAttribute("orderId", order.isPresent() ? order.get().getId() : "0");
+        model.addAttribute("order", order.get());
         model.addAttribute("address", userService.getUserAddressTo(authentication));
         return "order_summary";
     }
