@@ -32,7 +32,7 @@ public class BottleController {
     @GetMapping("/add/{id}")
     String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
         model.addAttribute("product", bottleService.getBottleTo(id));
-        basketService.addBottleToOrder(authentication, id);
+        bottleService.addBottleToOrder(authentication, id);
         return "product-page";
     }
 

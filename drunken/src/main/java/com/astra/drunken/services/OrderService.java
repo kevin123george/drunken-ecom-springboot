@@ -7,6 +7,7 @@ import com.astra.drunken.repositories.OrderRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,7 +23,13 @@ public class OrderService {
 
     public Optional<Order> getOrderByUserAndActive(Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
-        return orderRepo.findByUserAndIsActive(user.get(), true);
+        var order = orderRepo.findByUserAndIsActive(user.get(), true);
+        if (order.isEmpty()) {
+            var newOrder = new Order();
+            newOrder.setUser(user.get());
+            return Optional.of(orderRepo.save(newOrder));
+        }
+        return order;
     }
 
     public void checkoutOrder(Authentication authentication, Long orderId){
@@ -79,6 +86,12 @@ public class OrderService {
         }
         return true;
     }
+    @Transactional
+    public Order savOrder(Order order){
+        return orderRepo.save(order);
+    }
+
+
 
 
 }

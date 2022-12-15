@@ -67,7 +67,8 @@ public class CrateService {
         orderItem.setOrder(order);
         orderItem.setPrice(crate.getPrice());
         orderItems.add(orderItem);
-        orderItemRepo.saveAll(orderItems);
+        order.setOrderItems(orderItems);
+        orderService.savOrder(order);
 
     }
 }
