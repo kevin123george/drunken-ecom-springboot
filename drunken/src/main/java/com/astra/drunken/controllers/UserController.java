@@ -1,5 +1,6 @@
 package com.astra.drunken.controllers;
 
+import com.astra.drunken.models.Address;
 import com.astra.drunken.models.User;
 import com.astra.drunken.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,20 @@ public class UserController {
         model.addAttribute("userInfo", userService.getUserTo(authentication));
         return "profile";
     }
+
+    @GetMapping("/profile/add/address")
+    public String addAddressForm(Authentication authentication, Model model) {
+        model.addAttribute("address", userService.getUserAddressTo(authentication));
+        return "edit-address";
+    }
+
+    @PostMapping("/profile/add/address")
+    public String addAddress(Authentication authentication, @ModelAttribute("address") Address address) {
+        userService.editAddress(address, authentication);
+
+        return "redirect:/user/profile";
+    }
+
 
     @GetMapping("/profile/edit")
     public String editUserForm(Authentication authentication, Model model) {

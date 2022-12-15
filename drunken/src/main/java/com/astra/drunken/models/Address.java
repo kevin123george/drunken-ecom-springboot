@@ -16,7 +16,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO: 19.11.22 add not empty 
     @NotNull
     @NotEmpty
     private String street;
@@ -26,6 +25,7 @@ public class Address {
     private String number;
 
     @NotNull
+    @NotEmpty
     @Size(min = 5, max = 5)
     private String postalCode;
 

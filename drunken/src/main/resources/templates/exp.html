@@ -8,9 +8,13 @@
 <body>
 
 <div layout:fragment="content">
+    <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
     <section class="shop_grid_area section-padding-80">
         <div class="container">
             <div class="row">
+                <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
 
 
                 <div class="shop_grid_product_area">

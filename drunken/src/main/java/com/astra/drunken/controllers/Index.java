@@ -31,14 +31,18 @@ public class Index {
     }
 
     @GetMapping("/")
-    String getIndex(Model model) {
+    String getIndex(Authentication authentication, Model model) {
+        if (authentication != null && authentication.isAuthenticated() & orderService.getOrderByUserAndActive(authentication).isPresent()) {
+            model.addAttribute("haveActiveCart", true);
+            model.addAttribute("itemCount", orderService.getOrderByUserAndActive(authentication).get().getOrderItems().size());
+        }
         model.addAttribute("productList", basketService.getAllProducts());
         return "exp";
     }
 
     @GetMapping("/add-random")
     String addRandomProducts(Authentication authentication, Model model) {
-        basketService.addToBasket(authentication, 2L);
+//        basketService.addToBasket(authentication, 2L);
         bottleService.addRandom();
         return "exp";
     }
