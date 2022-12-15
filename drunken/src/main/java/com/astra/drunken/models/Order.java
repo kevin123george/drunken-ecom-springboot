@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -24,7 +25,7 @@ public class Order {
     @PositiveOrZero
     private Double price;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("id ASC")
     private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 
@@ -32,5 +33,6 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+//    cart is inactive when check out is completer
     private Boolean isActive = true;
 }

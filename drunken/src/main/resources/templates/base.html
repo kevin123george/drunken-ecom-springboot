@@ -23,21 +23,6 @@
 
 
 </head>
-<!-- <style>
-        /* Style the buttons */
-        .btn {
-          border: none;
-          outline: none;
-          cursor: pointer;
-          font-size: 18px;
-        }
-        
-        /* Style the active class, and buttons on mouse-over */
-     .btn:hover {
-          background-color: #666;
-          color: white;
-        }
-        </style> -->
 <body>
 <!-- ##### Header Area Start ##### -->
 <header class="header_area">
@@ -47,44 +32,6 @@
             <!-- Logo -->
             <a class="nav-brand" href="/">Drunken</a>
             <!-- Navbar Toggler -->
-
-            <!-- Menu -->
-            <!-- <div class="classynav">
-                <ul>
-            
-                    <li><a href="#">Category 
-                    </a>
-                        <ul class="dropdown">
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'SW' %} ">Sport wears</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'S' %} ">Shirt</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'OW' %} ">Outwear</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'CL' %} ">Classy</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'EW' %} ">Ethnic Wear</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'WW' %} ">Western Wear</a>
-                            </li>
-                            <li class="btn">
-                                <a  href="{% url 'category-list' 'FW' %} ">Fusion Wear</a>
-                            </li>
-                      
-                            <li class="btn">
-                                <a href="{% url 'category-list' 'LJ' %} ">Leggings & Jeggings</a>
-                            </li>
-                        </ul>
-                    </li>
-                 
-                </ul>
-            </div> -->
         </nav>
         </nav>
 
@@ -112,11 +59,7 @@
             <!-- Cart Area -->
             <div class="cart-area">
                 <a href="/orders/order-summary/"><img src="/mg/core-img/bag.svg" alt="">
-<!--                    <div sec:authorize="isAuthenticated()">-->
-<!--                        <strong>-->
-<!--                            <span th:text="${#authentication.getPrincipal().getUsername()}"></span>-->
-<!--                        </strong>-->
-<!--                    </div>-->
+                    <span sec:authorize="isAuthenticated()" th:text="${itemCount}">  </span>
                 </a>
             </div>
             <div sec:authorize="isAuthenticated()">

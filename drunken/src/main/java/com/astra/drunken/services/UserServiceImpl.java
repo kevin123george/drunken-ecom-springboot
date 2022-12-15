@@ -1,7 +1,10 @@
 package com.astra.drunken.services;
 
+import com.astra.drunken.controllers.DTOs.AddressResposeTo;
 import com.astra.drunken.controllers.DTOs.UserResposeTo;
+import com.astra.drunken.models.Address;
 import com.astra.drunken.models.User;
+import com.astra.drunken.repositories.AddressRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +25,9 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Autowired
+    private AddressRepo addressRepo;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepo userRepository) {
@@ -38,12 +44,29 @@ public class UserServiceImpl implements UserService {
         return new UserResposeTo(user.get());
     }
 
+
+
+    public AddressResposeTo getUserAddressTo(Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+        return new AddressResposeTo(user.get());
+    }
+
     @Transactional
     public User editUser(User newUser, Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
         user.get().setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.get().setBirthDate(newUser.getBirthDate());
         return userRepo.save(user.get());
+
+    }
+
+    @Transactional
+    public User editAddress(Address address, Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+//        address.setUser(user.get());
+        user.get().setAddress(address);
+        return userRepo.save(user.get());
+//        return userRepo.save(user.get());
 
     }
 

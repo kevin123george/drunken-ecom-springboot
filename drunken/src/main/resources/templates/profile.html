@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base}">
+      layout:decorate="~{base}" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Welcome to Our Site</title>
 </head>
@@ -21,6 +21,37 @@
         </div>
         <div class="form-group"></div>
         <a class="btn btn-primary py-3 px-5" href="/user/profile/edit">edit profile</a>
+    </div>
+
+    <div style="margin-left: 10%">
+
+        <h1 style="margin-top: 2%"><b>Addresses</b></h1>
+        <div th:if= "${userInfo?.address == null}">
+            No address Found please add address
+            </br>
+            <a class="btn btn-primary py-3 px-5" href="/user/profile/add/address">add address</a>
+        </div>
+        <div>
+            Street : <span th:text="${userInfo.userName}"></span>
+        </div>
+        <div>
+            PostalCode : <span th:text="${userInfo.userName}"></span>
+        </div>
+
+        <div>
+            number : <span th:text="${userInfo.userName}"></span>
+        </div>
+        <a class="btn btn-primary py-3 px-5" href="/user/profile/add/address">edit address</a>
+
+        <br/>
+<!--        <div>-->
+<!--            User Name : <span th:text="${userInfo.userName}"></span>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>-->
+<!--        </div>-->
+<!--        <div class="form-group"></div>-->
+<!--        <a class="btn btn-primary py-3 px-5" href="/user/profile/edit">edit profile</a>-->
     </div>
 
 </div>

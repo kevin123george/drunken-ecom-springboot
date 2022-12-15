@@ -8,8 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.Collection;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,6 +33,7 @@ public class User {
 
     // TODO: 19.11.22 add validation birthday: LocalDate(>1.1.1900, <today)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message = "we don't sell to time travelers  .....")
     private Date birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -42,15 +43,5 @@ public class User {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("id ASC")
     private Set<Order> orders;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-
-    private Collection<Role> roles;
 
 }

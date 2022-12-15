@@ -1,5 +1,6 @@
 package com.astra.drunken.services;
 
+import com.astra.drunken.models.Address;
 import com.astra.drunken.models.Order;
 import com.astra.drunken.models.User;
 import com.astra.drunken.repositories.OrderRepo;
@@ -24,11 +25,21 @@ public class OrderService {
         return orderRepo.findByUserAndIsActive(user.get(), true);
     }
 
-    public void checkoutOrder(Long orderId){
+    public void checkoutOrder(Authentication authentication, Long orderId){
         var order = orderRepo.findById(orderId);
+        processOrder(authentication, orderId);
         order.get().setIsActive(false);
         orderRepo.save(order.get());
     }
+
+    /**
+//     * @param authentication
+//     * @return
+//     */
+//    public Optional<Address> usersAddress(Authentication authentication){
+//        var user = userRepo.findByUserName(authentication.getName());
+//        return Optional.ofNullable(user.get().getAddress());
+//    }
 
     /**
      * I check if the customer already have a active Cart if so return else return new Cart.
@@ -47,5 +58,27 @@ public class OrderService {
 //            return newOrder;
         }
     }
+
+
+    public void processOrder(Authentication authentication, Long orderId){
+        var user = userRepo.findByUserName(authentication.getName());
+        var order = orderRepo.findById(orderId);
+        var address = user.get().getAddress();
+        order.get().setIsActive(false);
+        if (address == null){
+            throw new RuntimeException("address cannot be empty");
+        }
+        orderRepo.save(order.get());
+    }
+
+    public Boolean doIhaveAddress(Authentication authentication){
+        var user = userRepo.findByUserName(authentication.getName());
+        var address = user.get().getAddress();
+        if (address == null ){
+            return false;
+        }
+        return true;
+    }
+
 
 }

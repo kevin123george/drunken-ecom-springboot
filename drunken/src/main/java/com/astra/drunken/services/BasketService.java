@@ -125,4 +125,9 @@ public class BasketService {
     }
 
 
+    public void removeItem(Long itemId){
+        orderItemRepo.deleteById(itemId);
+    }
+
+
 }

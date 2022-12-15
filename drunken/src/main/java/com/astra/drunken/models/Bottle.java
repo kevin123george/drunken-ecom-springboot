@@ -24,19 +24,20 @@ public class Bottle {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Invalid Input")
+    @NotEmpty
+    @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Only containing letters and digits")
     private String name;
 
 
+    @URL
     private String bottlePic;
 
-    @Min(0)
+    @Min(value = 0, message = "volume cannot be negative ")
     private Double volume;
 
     private Boolean isAlcoholic = Boolean.FALSE;
 
-    // TODO: 19.11.22  handle this in service  volumePercent: double (when value > 0.0, than isAlcoholic true)
-    private Double volumePercent;
+    private Double volumePercent = 0.0;
 
     @Min(0)
     private Double price;
