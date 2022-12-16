@@ -41,6 +41,7 @@ public class BottleController {
         model.addAttribute("message", msg);
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";
+
     }
 
     @GetMapping("")

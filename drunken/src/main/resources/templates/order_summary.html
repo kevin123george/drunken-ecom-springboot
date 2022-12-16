@@ -23,9 +23,9 @@
                         <thead>
                         <tr>
 
-                            <th scope="col">Item Position</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Price</th>
-                            <th scope="col">#</th>
+
                             <!--                    <th scope="col">Quantity</th>-->
                             <!--                    <th scope="col">Total Item Price</th>-->
                         </tr>
@@ -34,7 +34,21 @@
                         <div th:if="${order != null}">
                             <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${order.orderItems}">
 
-                                <td th:text="${product.position}"></td>
+
+                                <td>
+                                    <a class="fa fa-link"
+                                       th:if = "${product.beverage.bottle != null}" th:text=" ${product.beverage.bottle.name}"
+                                       th:href="@{'/bottle/'} + ${product.beverage.bottle.id}"></a>
+
+                                    <a class="fa fa-link"
+                                       th:if = "${product.beverage.crate != null}" th:text=" ${product.beverage.crate.name}"
+                                       th:href="@{'/crate/'} + ${product.beverage.crate.id}"></a>
+                                </td>
+                                <!--                                <td >-->
+                                <!--                                    th:text="${product.beverage.crate.name != null} ? ${product.beverage.crate.name} : ${product.beverage.bottle.name}"-->
+                                <!--                                    <a th:text="${product.beverage.crate?.name}"  class="fa fa-link"  th:href="@{/bottle/} +${product.beverage.crate?.id}"></a>-->
+                                <!--                                </td>-->
+
                                 <td th:text="${product.price}"></td>
                                 <td>
                                     <a th:href="@{/orders/remove/}+${product.id}"><i

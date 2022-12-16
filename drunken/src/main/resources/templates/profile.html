@@ -31,17 +31,21 @@
             </br>
             <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
         </div>
-        <div>
-            Street : <span th:text="${userInfo.userName}"></span>
-        </div>
-        <div>
-            PostalCode : <span th:text="${userInfo.userName}"></span>
+
+        <div th:if= "${userInfo?.address != null}">
+            <div>
+                Street : <span th:text="${userInfo.address.street}"></span>
+            </div>
+            <div>
+                PostalCode : <span th:text="${userInfo.address.postalCode}"></span>
+            </div>
+
+            <div>
+                number : <span th:text="${userInfo.address.number}"></span>
+            </div>            </br>
+            <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
         </div>
 
-        <div>
-            number : <span th:text="${userInfo.userName}"></span>
-        </div>
-        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
 
         <br/>
 <!--        <div>-->
