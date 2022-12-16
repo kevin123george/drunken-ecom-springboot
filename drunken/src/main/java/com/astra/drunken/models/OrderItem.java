@@ -26,7 +26,7 @@ public class OrderItem {
     private String position;
 
     @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
 

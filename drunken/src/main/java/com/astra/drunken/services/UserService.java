@@ -13,12 +13,14 @@ import java.util.Collection;
 public interface UserService extends UserDetailsService {
     User save(User registrationDto);
 
-    User editUser(User user,Authentication authentication);
+    User editUser(User user, Authentication authentication);
 
     Collection<? extends GrantedAuthority> getAuthorities();
 
     User getUserByName(String name);
+
     UserResposeTo getUserTo(Authentication authentication);
+
     AddressResposeTo getUserAddressTo(Authentication authentication);
 
     User editAddress(Address address, Authentication authentication);

@@ -48,15 +48,16 @@ public class BottleService {
 
     }
 
-    public List<Bottle> productSearch(String q){
+    public List<Bottle> productSearch(String q) {
         return bottleRepo.findByNameContaining(q);
     }
 
-    public ProductResponseTO getBottleTo(Long id){
+    public ProductResponseTO getBottleTo(Long id) {
         var bottle = bottleRepo.findById(id);
         return new ProductResponseTO(bottle.get());
     }
-    public void addBottleToOrder(Authentication authentication, Long bottleId) {
+
+    public String addBottleToOrder(Authentication authentication, Long bottleId) {
         // TODO: 28/11/2022  move this to a consturtor
         // TODO: 01/12/2022  checkc add to basket only adding one item ata a rime
 
@@ -75,6 +76,7 @@ public class BottleService {
         order.setOrderItems(orderItems);
         order.setPrice(order.getPrice() + orderItem.getPrice());
         orderService.savOrder(order);
+        return "item added to cart";
 
     }
 

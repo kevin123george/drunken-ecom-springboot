@@ -1,10 +1,7 @@
 package com.astra.drunken.controllers;
 
 import com.astra.drunken.repositories.OrderItemRepo;
-import com.astra.drunken.services.BasketService;
-import com.astra.drunken.services.BottleService;
-import com.astra.drunken.services.CrateService;
-import com.astra.drunken.services.OrderService;
+import com.astra.drunken.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,24 +17,23 @@ public class Index {
     private final OrderService orderService;
     private final OrderItemRepo orderItemRepo;
     private final CrateService crateService;
+    private final TemplateHelper templateHelper;
 
     @Autowired
-    public Index(BottleService bottleService, BasketService basketService, OrderService orderService, OrderItemRepo orderItemRepo, CrateService crateService) {
+    public Index(BottleService bottleService, BasketService basketService, OrderService orderService, OrderItemRepo orderItemRepo, CrateService crateService, TemplateHelper templateHelper) {
         this.bottleService = bottleService;
         this.basketService = basketService;
         this.orderService = orderService;
         this.orderItemRepo = orderItemRepo;
         this.crateService = crateService;
+        this.templateHelper = templateHelper;
     }
 
     @GetMapping("/")
     String getIndex(Authentication authentication, Model model) {
         bottleService.addRandom();
-        if (authentication != null && authentication.isAuthenticated() & orderService.getOrderByUserAndActive(authentication).isPresent()) {
-            model.addAttribute("haveActiveCart", true);
-            model.addAttribute("itemCount", orderService.getOrderByUserAndActive(authentication).get().getOrderItems().size());
-        }
         model.addAttribute("productList", basketService.getAllProducts());
+        templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
     }
 
@@ -49,8 +45,10 @@ public class Index {
     }
 
     @GetMapping("/search")
-    String productSearch(Model model, @RequestParam String q) {
+    String productSearch(Model model, @RequestParam String q, Authentication authentication) {
+
         model.addAttribute("productList", bottleService.productSearch(q));
+        templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
     }
 

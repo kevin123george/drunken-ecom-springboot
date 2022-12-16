@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,9 +112,21 @@ public class BasketService {
     }
 
 
-    public void removeItem(Long itemId){
+    public void removeItem(Authentication authentication, Long itemId) {
+        var itemPrice = orderItemRepo.findById(itemId).get().getPrice();
+        var order = orderService.getOrderByUserAndActive(authentication).get();
+        var currentTotal = order.getPrice() - itemPrice;
+        order.setPrice(currentTotal);
+        orderRepo.save(order);
         orderItemRepo.deleteById(itemId);
     }
 
+    @Transactional
+    public void removeAllItems(Authentication authentication) {
+        var order = orderService.getOrderByUserAndActive(authentication).get();
+        order.setPrice(0.0);
+        orderItemRepo.deleteByOrder(order);
+
+    }
 
 }
