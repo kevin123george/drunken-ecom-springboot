@@ -44,7 +44,7 @@ public class CrateService {
 
     }
 
-    public ProductResponseTO getBottleTo(Long id){
+    public ProductResponseTO getBottleTo(Long id) {
         var crate = crateRepo.findById(id);
         return new ProductResponseTO(crate.get());
     }

@@ -28,14 +28,14 @@ public class Order {
     @PositiveOrZero
     private Double price = 0.0;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-//    cart is inactive when check out is completer
+    //    cart is inactive when check out is completer
     private Boolean isActive = true;
 }

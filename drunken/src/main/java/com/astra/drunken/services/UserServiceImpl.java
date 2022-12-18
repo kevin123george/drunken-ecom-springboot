@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     public AddressResposeTo getUserAddressTo(Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
         return new AddressResposeTo(user.get());

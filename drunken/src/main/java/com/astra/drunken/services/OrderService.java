@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,10 +30,16 @@ public class OrderService {
             newOrder.setUser(user.get());
             return Optional.of(orderRepo.save(newOrder));
         }
-        return order;
+        return order.get().stream().findFirst();
     }
 
-    public void checkoutOrder(Authentication authentication, Long orderId){
+    public List<Order> getOrderByUserAndNotActive(Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+        return orderRepo.findByUserAndIsActive(user.get(), false).get();
+    }
+
+
+    public void checkoutOrder(Authentication authentication, Long orderId) {
         var order = orderRepo.findById(orderId);
         processOrder(authentication, orderId);
         order.get().setIsActive(false);
@@ -40,9 +47,9 @@ public class OrderService {
     }
 
     /**
-//     * @param authentication
-//     * @return
-//     */
+     //     * @param authentication
+     //     * @return
+     //     */
 //    public Optional<Address> usersAddress(Authentication authentication){
 //        var user = userRepo.findByUserName(authentication.getName());
 //        return Optional.ofNullable(user.get().getAddress());
@@ -57,7 +64,7 @@ public class OrderService {
     public Order getOrderByUserAndActive(User user) {
         var oldOrder = orderRepo.findByUserAndIsActive(user, true);
         if (oldOrder.isPresent()) {
-            return oldOrder.get();
+            return oldOrder.get().stream().findFirst().get();
         } else {
             var newOrder = new Order();
             newOrder.setUser(user);
@@ -67,31 +74,30 @@ public class OrderService {
     }
 
 
-    public void processOrder(Authentication authentication, Long orderId){
+    public void processOrder(Authentication authentication, Long orderId) {
         var user = userRepo.findByUserName(authentication.getName());
         var order = orderRepo.findById(orderId);
         var address = user.get().getAddress();
         order.get().setIsActive(false);
-        if (address == null){
+        if (address == null) {
             throw new RuntimeException("address cannot be empty");
         }
         orderRepo.save(order.get());
     }
 
-    public Boolean doIhaveAddress(Authentication authentication){
+    public Boolean doIhaveAddress(Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
         var address = user.get().getAddress();
-        if (address == null ){
+        if (address == null) {
             return false;
         }
         return true;
     }
+
     @Transactional
-    public Order savOrder(Order order){
+    public Order savOrder(Order order) {
         return orderRepo.save(order);
     }
-
-
 
 
 }

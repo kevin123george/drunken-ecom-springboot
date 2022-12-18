@@ -4,55 +4,101 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Welcome to Our Site</title>
+    <title>Profile</title>
 </head>
 <body>
 
 <div layout:fragment="content">
-    <div style="margin-left: 10%">
 
-        <h1 style="margin-top: 2%"><b>Profile</b></h1>
-        <br/>
-        <div>
-            User Name : <span th:text="${userInfo.userName}"></span>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-70" style="margin-left: 5%">
+                <div style="margin-left: 10%">
+
+                    <h1 style="margin-top: 2%"><b>Profile</b></h1>
+                    <br/>
+                    <div>
+                        User Name : <span th:text="${userInfo.userName}"></span>
+                    </div>
+                    <div>
+                        Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>
+                    </div>
+                    <div class="form-group"></div>
+                    <a class="btn essence-btn ml-2" href="/user/profile/edit">edit profile</a>
+                </div>
+                <div style="margin-left: 10%">
+
+                    <h1 style="margin-top: 2%"><b>Addresses</b></h1>
+                    <div th:if="${userInfo?.address == null}">
+                        No address Found please add address
+                        </br>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
+                    </div>
+                    <div>
+                        Street : <span th:text="${userInfo.address.street}"></span>
+                    </div>
+                    <div>
+                        PostalCode : <span th:text="${userInfo.address.postalCode}"></span>
+                    </div>
+
+                    <div>
+                        number : <span th:text="${userInfo?.address.number}"></span>
+                    </div>
+                    <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
+
+                    <br/>
+                    <!--        <div>-->
+                    <!--            User Name : <span th:text="${userInfo.userName}"></span>-->
+                    <!--        </div>-->
+                    <!--        <div>-->
+                    <!--            Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>-->
+                    <!--        </div>-->
+                    <!--        <div class="form-group"></div>-->
+                    <!--        <a class="btn btn-primary py-3 px-5" href="/user/profile/edit">edit profile</a>-->
+                </div>
+
+            </div>
+            <div class="col-30" style="margin-left: 5%">
+                <div class="table-responsive text-nowrap">
+                    <h2 style="margin-top: 1%">Order Histor
+                    </h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th scope="col">order Id</th>
+                            <th scope="col">Total Price</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div th:if="${order != null}">
+                            <tr class="col-12 col-sm-6 col-lg-4" th:each="product: ${order}">
+
+
+                                <td>
+                                    <a th:if="${product.id != null}"
+                                       th:text=" ${product.id}"
+                                    ></a>
+
+                                </td>
+
+
+                                <td th:text="${product.price}"></td>
+
+                            </tr>
+                        </div>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
         </div>
-        <div>
-            Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>
-        </div>
-        <div class="form-group"></div>
-        <a class="btn essence-btn ml-2" href="/user/profile/edit">edit profile</a>
     </div>
 
-    <div style="margin-left: 10%">
-
-        <h1 style="margin-top: 2%"><b>Addresses</b></h1>
-        <div th:if= "${userInfo?.address == null}">
-            No address Found please add address
-            </br>
-            <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
-        </div>
-        <div>
-            Street : <span th:text="${userInfo.userName}"></span>
-        </div>
-        <div>
-            PostalCode : <span th:text="${userInfo.userName}"></span>
-        </div>
-
-        <div>
-            number : <span th:text="${userInfo.userName}"></span>
-        </div>
-        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
-
-        <br/>
-<!--        <div>-->
-<!--            User Name : <span th:text="${userInfo.userName}"></span>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            Date of Birth : <span th:text="${#dates.format(userInfo.birthDate, 'dd/MM/yyyy')}"></span>-->
-<!--        </div>-->
-<!--        <div class="form-group"></div>-->
-<!--        <a class="btn btn-primary py-3 px-5" href="/user/profile/edit">edit profile</a>-->
-    </div>
 
 </div>
 

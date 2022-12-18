@@ -83,6 +83,9 @@
     }
 
 
+
+
+
 </style>
 </head>
 <body>
@@ -94,15 +97,11 @@
 
         <!-- error message -->
         <div th:if="${param.error}">
-            <div th:text="${param.error}" class="alert alert-danger">Invalid username or
-                password.
+            <div class="alert alert-danger">
+                Invalid username or password.
             </div>
         </div>
 
-        <!-- logout message -->
-        <!--                <div th:if="${param.logout}">-->
-        <!--                    <div class="alert alert-info">You have been logged out.</div>-->
-        <!--                </div>-->
 
         <div class="form-group">
             <label for="username"> Username </label> :
@@ -116,42 +115,15 @@
                                                            placeholder="Enter Password"/>
         </div>
 
-        <!--                <div class="form-group">-->
-        <!--                    <div class="row">-->
-        <!--                        <div class="col-sm-6 col-sm-offset-3">-->
-        <!--                            <input type="submit" name="login-submit" id="login-submit"-->
-        <!--                                   class="form-control btn btn-primary" value="Log In" />-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </form>-->
 
-
-        <!--		</div>-->
         <div class="form-group" style="align-content: center">
             <button type="submit" class="btn btn-primary btn-lg" style="float: center;width: 40%;margin: 2.5%">Login
             </button>
 
-            <!--            <div class="btn btn-primary btn-lg" style="float: center;width: 40% ;margin: 2.5%"> <a href="/accounts/password/reset/" style="text-decoration : none;color :white;">Forgot Password?</a></div>-->
         </div>
     </form>
     <hr/>
     <div class="hint-text">Don't have an account? <a href="/user/registration" style="color: #333">signup here</a></div>
-    <!--  {% if form.errors %}-->
-    <!--  {% for field in form %}-->
-    <!--      {% for error in field.errors %}-->
-    <!--          <div class="alert alert-danger">-->
-    <!--              <small>{{ error|escape }}</small>-->
-    <!--          </div>-->
-    <!--      {% endfor %}-->
-    <!--  {% endfor %}-->
-
-    <!--  {% for error in form.non_field_errors %}-->
-    <!--      <div class="alert alert-danger">-->
-    <!--          <small>{{ error|escape }}</small>-->
-    <!--      </div>-->
-    <!--  {% endfor %}-->
-    <!--{% endif %}-->
 
 
 </div>

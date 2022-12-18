@@ -123,7 +123,13 @@
 </nav>
 
 
-<!-- Content Section -->
+<div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert" style="padding: 1%"
+     align="center">
+    <strong align="center" th:text="${message}"></strong></strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 <section layout:fragment="content">
     <p>This is filled by the content template.</p>
 </section>
@@ -178,6 +184,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script th:src="@{/js/active.js}"></script>
 
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script>
+    $(document).ready(function() {
+    // show the alert
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 2000);
+});
+
+</script>
 
 
 </body>
