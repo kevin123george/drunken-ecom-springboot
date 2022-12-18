@@ -4,12 +4,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
 <head>
-    <title>Welcome to Our Site</title>
+    <title>edit address</title>
 </head>
 <body>
 
 <div layout:fragment="content">
-    <form th:action="@{/user/profile/add/address}" method="post" th:object="${address}" style="margin-left:20%;margin-right:20%;margin-top:2%">
+    <form th:action="@{/user/profile/add/address}" method="post" th:object="${address}"
+          style="margin-left:20%;margin-right:20%;margin-top:2%">
         <h1 style="margin-top: 2%"><b>Edit Address</b></h1>
 
         <div class="form-group">
@@ -31,22 +32,10 @@
         </div>
 
 
-
         <div class="form-group">
             <input type="submit" value="Submit" class="btn btn-primary py-3 px-5">
         </div>
-        <!-- {{form.as_p}}
-       <div class="form-group">
-         <input type="submit" value="Submit" class="btn btn-primary py-3 px-5">
-       </div>  -->
     </form>
-
-    <!--        <ul>-->
-    <!--            {% for field in form %}-->
-    <!--                {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}-->
-    <!--            {% endfor %}-->
-    <!--        </ul>-->
-
 
 </div>
 

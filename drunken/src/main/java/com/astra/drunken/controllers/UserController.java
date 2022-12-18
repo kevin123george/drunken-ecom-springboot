@@ -50,7 +50,10 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getUserById(Authentication authentication, Model model) {
+
+        var order = orderService.getOrderByUserAndNotActive(authentication);
         model.addAttribute("userInfo", userService.getUserTo(authentication));
+        model.addAttribute("order", order);
         templateHelper.defaultTemplateModel(model, authentication);
         return "profile";
     }

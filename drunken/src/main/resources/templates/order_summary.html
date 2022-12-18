@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}">
 <head>
-    <title>Welcome to Our Site</title>
+    <title>order</title>
 </head>
 <body>
 <main layout:fragment="content">
@@ -25,6 +25,9 @@
 
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
+                            <th scope="col"><a th:href="@{/orders/remove/all}"><i
+                                    class="fa fa-trash"></i></a>
+                            </th>
 
                             <!--                    <th scope="col">Quantity</th>-->
                             <!--                    <th scope="col">Total Item Price</th>-->
@@ -37,11 +40,13 @@
 
                                 <td>
                                     <a class="fa fa-link"
-                                       th:if = "${product.beverage.bottle != null}" th:text=" ${product.beverage.bottle.name}"
+                                       th:if="${product.beverage.bottle != null}"
+                                       th:text=" ${product.beverage.bottle.name}"
                                        th:href="@{'/bottle/'} + ${product.beverage.bottle.id}"></a>
 
                                     <a class="fa fa-link"
-                                       th:if = "${product.beverage.crate != null}" th:text=" ${product.beverage.crate.name}"
+                                       th:if="${product.beverage.crate != null}"
+                                       th:text=" ${product.beverage.crate.name}"
                                        th:href="@{'/crate/'} + ${product.beverage.crate.id}"></a>
                                 </td>
                                 <!--                                <td >-->

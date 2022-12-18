@@ -123,7 +123,8 @@
 </nav>
 
 
-<div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert" style="padding: 1%" align="center">
+<div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert" style="padding: 1%"
+     align="center">
     <strong align="center" th:text="${message}"></strong></strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -190,6 +191,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         $(".alert").alert('close');
     }, 2000);
 });
+
 </script>
 
 

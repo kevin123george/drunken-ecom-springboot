@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,8 +30,14 @@ public class OrderService {
             newOrder.setUser(user.get());
             return Optional.of(orderRepo.save(newOrder));
         }
-        return order;
+        return order.get().stream().findFirst();
     }
+
+    public List<Order> getOrderByUserAndNotActive(Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+        return orderRepo.findByUserAndIsActive(user.get(), false).get();
+    }
+
 
     public void checkoutOrder(Authentication authentication, Long orderId) {
         var order = orderRepo.findById(orderId);
@@ -57,7 +64,7 @@ public class OrderService {
     public Order getOrderByUserAndActive(User user) {
         var oldOrder = orderRepo.findByUserAndIsActive(user, true);
         if (oldOrder.isPresent()) {
-            return oldOrder.get();
+            return oldOrder.get().stream().findFirst().get();
         } else {
             var newOrder = new Order();
             newOrder.setUser(user);

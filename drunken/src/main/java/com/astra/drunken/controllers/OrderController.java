@@ -64,7 +64,7 @@ public class OrderController {
 
         try {
             basketService.removeItem(authentication, itemId);
-            model.addAttribute("successMsg", "Account Edit/Delete successfully");
+            model.addAttribute("message", "item deleted");
             templateHelper.defaultTemplateModel(model, authentication);
             return "redirect:/orders/order-summary/";
         } catch (Exception ex) {
@@ -78,7 +78,7 @@ public class OrderController {
 
         try {
             basketService.removeAllItems(authentication);
-            model.addAttribute("successMsg", "Account Edit/Delete successfully");
+            model.addAttribute("message", "cart cleared");
             templateHelper.defaultTemplateModel(model, authentication);
             return "redirect:/orders/order-summary/";
         } catch (Exception ex) {
