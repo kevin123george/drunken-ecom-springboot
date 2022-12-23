@@ -74,7 +74,9 @@ public class CrateService {
             orderItem.setOrder(order);
             orderItem.setPrice(crate.getPrice());
             orderItems.add(orderItem);
+            orderItem.setPrice(crate.getPrice());
             order.setOrderItems(orderItems);
+            order.setPrice(order.getPrice() + orderItem.getPrice());
             crate.setCrateInStock(crate.getCrateInStock()-1);
             orderItem.setBeverage(beverage);
             beverage.setOrderItem(orderItem);
