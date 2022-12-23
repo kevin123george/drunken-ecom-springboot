@@ -27,6 +27,7 @@ public class BasketService {
     private final CrateService crateService;
     private final OrderService orderService;
 
+
     @Autowired
     public BasketService(BottleService bottleService, OrderRepo orderRepo, OrderItemRepo orderItemRepo, CrateService crateService, OrderService orderService) {
         this.bottleService = bottleService;
@@ -102,18 +103,39 @@ public class BasketService {
 
 
     public void removeItem(Authentication authentication, Long itemId) {
-        var itemPrice = orderItemRepo.findById(itemId).get().getPrice();
+        var item = orderItemRepo.findById(itemId).get();
+        var itemPrice = item.getPrice();
         var order = orderService.getOrderByUserAndActive(authentication).get();
         var currentTotal = order.getPrice() - itemPrice;
         order.setPrice(currentTotal);
+        updateItemsCount(item);
         orderRepo.save(order);
         orderItemRepo.deleteById(itemId);
-    }
+        }
+
 
     @Transactional
     public void removeAllItems(Authentication authentication) {
         var order = orderService.getOrderByUserAndActive(authentication).get();
+        var items = order.getOrderItems();
         order.setPrice(0.0);
         orderItemRepo.deleteByOrder(order);
+        for(OrderItem item : items){
+            updateItemsCount(item);
+        }
+    }
+
+    public void updateItemsCount(OrderItem item){
+
+        if (item.getBeverage().getBottle() != null){
+            var bottle = item.getBeverage().getBottle();
+            bottle.setInStock(bottle.getInStock() + 1);
+            bottleService.saveBottle(bottle);
+        }
+        else{
+            var crate = item.getBeverage().getCrate();
+            crate.setCrateInStock(crate.getCrateInStock() +1);
+            crateService.saveCrate(crate);
+        }
     }
 }

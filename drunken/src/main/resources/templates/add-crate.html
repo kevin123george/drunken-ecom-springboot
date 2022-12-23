@@ -1,0 +1,66 @@
+<!--Main layout-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>add crate</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <form th:action="@{/shopkeeper/crate}" method="post" th:object="${crate}"
+          style="margin-left:20%;margin-right:20%;margin-top:2%">
+        <h1 style="margin-top: 2%"><b>Add Bottle</b></h1>
+
+        <div class="form-group">
+            <label class="control-label" for="name"> name </label>
+            <input id="name" class="form-control" th:field="*{name}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="cratePic"> cratePic URL </label>
+            <input id="cratePic" class="form-control" th:field="*{cratePic}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('cratePic')}" th:errors="*{cratePic}"></p>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="noOfBottles"> no of bottles  </label>
+            <input id="noOfBottles" class="form-control" th:field="*{noOfBottles}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('noOfBottles')}" th:errors="*{noOfBottles}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="price"> price </label>
+            <input id="price" class="form-control" th:field="*{price}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label" for="crateInStock"> crate in stock </label>
+            <input id="crateInStock" class="form-control" th:field="*{crateInStock}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('crateInStock')}" th:errors="*{crateInStock}">
+
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary py-3 px-5">
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

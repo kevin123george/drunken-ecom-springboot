@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -65,7 +68,11 @@ public class UserController {
     }
 
     @PostMapping("/profile/add/address")
-    public String addAddress(Authentication authentication, @ModelAttribute("address") Address address, Model model) {
+    public String addAddress(Authentication authentication, @Valid @ModelAttribute("address") Address address, BindingResult error, Model model) {
+        if (error.hasErrors()){
+//            model.addAttribute("crate", );
+            return "edit-address";
+        }
         userService.editAddress(address, authentication);
         templateHelper.defaultTemplateModel(model, authentication);
         return "redirect:/user/profile";

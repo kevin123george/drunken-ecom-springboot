@@ -24,7 +24,7 @@ public class OrderService {
     public Optional<Order> getOrderByUserAndActive(Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
         var order = orderRepo.findByUserAndIsActive(user.get(), true);
-        if (order.isEmpty()) {
+        if (order.get().size() ==0) {
             var newOrder = new Order();
             newOrder.setUser(user.get());
             return Optional.of(orderRepo.save(newOrder));
@@ -62,7 +62,7 @@ public class OrderService {
      */
     public Order getOrderByUserAndActive(User user) {
         var oldOrder = orderRepo.findByUserAndIsActive(user, true);
-        if (oldOrder.isPresent()) {
+        if (oldOrder.get().size() != 0) {
             return oldOrder.get().stream().findFirst().get();
         } else {
             var newOrder = new Order();

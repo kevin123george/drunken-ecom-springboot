@@ -31,21 +31,23 @@
 
                         <div class="mb-3">
                             <a href="">
-                                <span th:text="${product.name}" class="badge purple mr-1"> </span>
+                                <span th:text="${product.name}" class="lead font-weight-bold"> </span>
                             </a>
 
                         </div>
+                        <label>Items in stock : </label>
+                        <span th:text="${product.inStock}"> </span>
 
-                        <p class="lead font-weight-bold">Availability : </p>
 
                         <p class="lead">
 
-                            <span th:text="${product.price}"></span>
+                            <label>Price :
+                            </label> <span th:text="${product.price}"></span>
 
 
                         </p>
 
-                        <p class="lead font-weight-bold">Description</p>
+                        <!--                        <p class="lead font-weight-bold">Description</p>-->
 
 
                         <a th:href="@{/}+${product.productType}+@{/add/}+${product.id}"

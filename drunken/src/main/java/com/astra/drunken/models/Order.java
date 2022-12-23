@@ -36,6 +36,6 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    //    cart is inactive when check out is completer
+    //    cart is inactive when check out is complete
     private Boolean isActive = true;
 }

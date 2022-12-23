@@ -4,7 +4,6 @@ import com.astra.drunken.controllers.DTOs.ProductResponseTO;
 import com.astra.drunken.models.Crate;
 import com.astra.drunken.models.OrderItem;
 import com.astra.drunken.repositories.CrateRepo;
-import com.astra.drunken.repositories.OrderItemRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -73,5 +72,9 @@ public class CrateService {
             orderService.savOrder(order);
         }
 
+    }
+
+    public Crate saveCrate(Crate crate) {
+        return crateRepo.save(crate);
     }
 }

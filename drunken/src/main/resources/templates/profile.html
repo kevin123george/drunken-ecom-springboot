@@ -35,17 +35,19 @@
                         </br>
                         <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
                     </div>
-                    <div>
-                        Street : <span th:text="${userInfo.address.street}"></span>
-                    </div>
-                    <div>
-                        PostalCode : <span th:text="${userInfo.address.postalCode}"></span>
-                    </div>
+                    <div th:if="${userInfo?.address != null}">
+                        <div>
+                            Street : <span th:text="${userInfo.address.street}"></span>
+                        </div>
+                        <div>
+                            PostalCode : <span th:text="${userInfo.address.postalCode}"></span>
+                        </div>
 
-                    <div>
-                        number : <span th:text="${userInfo?.address.number}"></span>
+                        <div>
+                            number : <span th:text="${userInfo?.address.number}"></span>
+                        </div>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
                     </div>
-                    <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
 
                     <br/>
                     <!--        <div>-->
@@ -59,7 +61,7 @@
                 </div>
 
             </div>
-            <div class="col-30" style="margin-left: 5%">
+            <div class="col-30" style="margin-left: 50%">
                 <div class="table-responsive text-nowrap">
                     <h2 style="margin-top: 1%">Order Histor
                     </h2>
