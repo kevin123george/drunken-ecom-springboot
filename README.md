@@ -1,4 +1,14 @@
-# group7
+# group7 - The Drunken
+
+an ecommerce website to sell liqures 
+
+## How to
+to run application first we need to set up our data base, personaly prefrere postgress but we can also opt for H2
+on application properties un comment postgress configuration to use postgres for h2 comment postgress config and uncomment H2
+
+please not we need to create postgres db if you are using postgress 
+and on initial run 
+spring.jpa.hibernate.ddl-auto should be create 
 
 
 
