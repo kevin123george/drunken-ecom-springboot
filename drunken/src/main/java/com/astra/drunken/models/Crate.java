@@ -39,7 +39,6 @@ public class Crate {
     private double price;
 
     @Min(0)
-    @Pattern(regexp ="[0-9]*\\.?[0-9]*" , message = "not a valid number")
     private int crateInStock;
 
 }

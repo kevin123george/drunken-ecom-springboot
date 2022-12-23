@@ -26,17 +26,19 @@ public class CrateController {
 
     @GetMapping("/{id}")
     String productDetails(Authentication authentication, Model model, @PathVariable Long id) {
-        model.addAttribute("product", crateService.getBottleTo(id));
+        model.addAttribute("product", crateService.getCrateTo(id));
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";
     }
 
     @GetMapping("/add/{id}")
     String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
-        model.addAttribute("product", crateService.getProductById(id).get());
+        model.addAttribute("product", crateService.getCrateTo(id));
+        model.addAttribute("itemType", 0);
         crateService.addCrateToOrder(authentication, id);
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";
+
     }
 
     @GetMapping("")

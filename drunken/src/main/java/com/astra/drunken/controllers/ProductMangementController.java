@@ -52,7 +52,7 @@ public class ProductMangementController {
             return "add-product";
         }
         bottleService.saveBottle(bottle);
-        return "add-product";
+        return "redirect:/";
     }
 
     @GetMapping("/crate")
@@ -68,7 +68,7 @@ public class ProductMangementController {
             return "add-crate";
         }
         crateService.saveCrate(crate);
-        return "add-crate";
+        return "redirect:/";
     }
 
 
