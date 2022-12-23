@@ -12,7 +12,7 @@ Please note we need to create Postgres DB if you are using Postgres and on the i
 
 ##  Db Desing
 
-
+![Alt text](db.jpg?raw=true "Db Design")
 
 ## Getting started
 
