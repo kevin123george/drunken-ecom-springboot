@@ -6,7 +6,6 @@ import com.astra.drunken.models.Address;
 import com.astra.drunken.models.User;
 import com.astra.drunken.repositories.AddressRepo;
 import com.astra.drunken.repositories.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,19 +20,18 @@ import java.util.Collections;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
-    @Autowired
-    private AddressRepo addressRepo;
+    private final AddressRepo addressRepo;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepository) {
-        super();
+    public UserServiceImpl(UserRepo userRepo, AddressRepo addressRepo, BCryptPasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.addressRepo = addressRepo;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     public User getUserByName(String userName) {
         return userRepo.findByUserName(userName).get();

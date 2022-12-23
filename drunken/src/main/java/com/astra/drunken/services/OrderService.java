@@ -1,6 +1,5 @@
 package com.astra.drunken.services;
 
-import com.astra.drunken.models.Address;
 import com.astra.drunken.models.Order;
 import com.astra.drunken.models.User;
 import com.astra.drunken.repositories.OrderRepo;
@@ -95,8 +94,8 @@ public class OrderService {
     }
 
     @Transactional
-    public Order savOrder(Order order) {
-        return orderRepo.save(order);
+    public void savOrder(Order order) {
+        orderRepo.save(order);
     }
 
 

@@ -1,6 +1,5 @@
 package com.astra.drunken.controllers;
 
-import com.astra.drunken.repositories.OrderItemRepo;
 import com.astra.drunken.services.BasketService;
 import com.astra.drunken.services.OrderService;
 import com.astra.drunken.services.TemplateHelper;
@@ -17,14 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderItemRepo orderItemRepo;
     private final BasketService basketService;
     private final UserService userService;
     private final TemplateHelper templateHelper;
 
-    public OrderController(OrderService orderService, OrderItemRepo orderItemRepo, BasketService basketService, UserService userService, TemplateHelper templateHelper) {
+    public OrderController(OrderService orderService, BasketService basketService, UserService userService, TemplateHelper templateHelper) {
         this.orderService = orderService;
-        this.orderItemRepo = orderItemRepo;
         this.basketService = basketService;
         this.userService = userService;
         this.templateHelper = templateHelper;
@@ -43,25 +40,17 @@ public class OrderController {
 
     @GetMapping("/checkout/{id}")
     String orderSummary(Authentication authentication, @PathVariable Long id, Model model) {
-//        if (authentication.isAuthenticated() & !orderService.doIhaveAddress(authentication)){
-//            return "redirect:/profile/edit";
-//        }
-
         if (!orderService.doIhaveAddress(authentication)) {
             return "redirect:/user/profile/add/address";
         }
         orderService.checkoutOrder(authentication, id);
         templateHelper.defaultTemplateModel(model, authentication);
-
         return "redirect:/";
-////        orderService.checkoutOrder(id);
-//        return "redirect:checkout/{id}/summery";
     }
 
 
     @GetMapping("/remove/{itemId}")
     String removeOrderItem(Authentication authentication, @PathVariable Long itemId, Model model) {
-
         try {
             basketService.removeItem(authentication, itemId);
             model.addAttribute("message", "item deleted");
@@ -89,7 +78,6 @@ public class OrderController {
 
     @GetMapping("/checkout/{id}/summery")
     String orderProcess(Authentication authentication, @PathVariable Long id, Model model) {
-
         orderService.checkoutOrder(authentication, id);
         templateHelper.defaultTemplateModel(model, authentication);
         return "checkout";

@@ -13,14 +13,12 @@ public class BEtoToConverter {
     }
 
     public static List<ProductResponseTO> convertBottleBEToTO(List<Bottle> bottleBEs) {
-        return bottleBEs.stream().map(s ->
-                new ProductResponseTO(s)
+        return bottleBEs.stream().map(ProductResponseTO::new
         ).collect(Collectors.toList());
     }
 
     public static List<ProductResponseTO> convertCrateBEToTO(List<Crate> crateBEs) {
-        return crateBEs.stream().map(s ->
-                new ProductResponseTO(s)
+        return crateBEs.stream().map(ProductResponseTO::new
         ).collect(Collectors.toList());
     }
 }

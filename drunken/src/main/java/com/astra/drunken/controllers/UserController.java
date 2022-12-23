@@ -50,7 +50,6 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getUserById(Authentication authentication, Model model) {
-
         var order = orderService.getOrderByUserAndNotActive(authentication);
         model.addAttribute("userInfo", userService.getUserTo(authentication));
         model.addAttribute("order", order);
@@ -60,7 +59,6 @@ public class UserController {
 
     @GetMapping("/profile/add/address")
     public String addAddressForm(Authentication authentication, Model model) {
-
         model.addAttribute("address", userService.getUserAddressTo(authentication));
         templateHelper.defaultTemplateModel(model, authentication);
         return "edit-address";
@@ -68,29 +66,22 @@ public class UserController {
 
     @PostMapping("/profile/add/address")
     public String addAddress(Authentication authentication, @ModelAttribute("address") Address address, Model model) {
-
         userService.editAddress(address, authentication);
         templateHelper.defaultTemplateModel(model, authentication);
-
         return "redirect:/user/profile";
     }
 
-
     @GetMapping("/profile/edit")
     public String editUserForm(Authentication authentication, Model model) {
-
         model.addAttribute("userInfo", userService.getUserTo(authentication));
         templateHelper.defaultTemplateModel(model, authentication);
-
         return "edit-profile";
     }
 
     @PostMapping("/profile/edit")
     public String editUser(Authentication authentication, @ModelAttribute("user") User user, Model model) {
-
         userService.editUser(user, authentication);
         templateHelper.defaultTemplateModel(model, authentication);
-
         return "redirect:/user/profile";
     }
 }

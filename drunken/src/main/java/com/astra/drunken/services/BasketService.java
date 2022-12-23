@@ -24,18 +24,14 @@ public class BasketService {
     private final BottleService bottleService;
     private final OrderRepo orderRepo;
     private final OrderItemRepo orderItemRepo;
-    private final UserService userService;
-    private final UserRepo userRepo;
     private final CrateService crateService;
     private final OrderService orderService;
 
     @Autowired
-    public BasketService(BottleService bottleService, OrderRepo orderRepo, OrderItemRepo orderItemRepo, UserService userService, UserRepo userRepo, CrateService crateService, OrderService orderService) {
+    public BasketService(BottleService bottleService, OrderRepo orderRepo, OrderItemRepo orderItemRepo, CrateService crateService, OrderService orderService) {
         this.bottleService = bottleService;
         this.orderRepo = orderRepo;
         this.orderItemRepo = orderItemRepo;
-        this.userService = userService;
-        this.userRepo = userRepo;
         this.crateService = crateService;
         this.orderService = orderService;
     }
@@ -71,13 +67,10 @@ public class BasketService {
 
 
     /**
-     * I check if the customer already have a active Cart if so return else return new Cart.
+     * check out order with order id
      *
-     * @param authentication - the current authenticated user
-     * @param bottleId       - opted bottle
+     * @param orderId       - orderId
      */
-
-
     public void checkout(Long orderId) {
         var order = orderRepo.findById(orderId);
         order.get().setIsActive(false);
@@ -97,18 +90,14 @@ public class BasketService {
 
     public List<ProductResponseTO> getAllBottles() {
         var bottle = bottleService.getAllBottles();
-        List<ProductResponseTO> productsResponseTO = new ArrayList<>();
         var bottleResponseTO = BEtoToConverter.convertBottleBEToTO(bottle);
-        productsResponseTO.addAll(bottleResponseTO);
-        return productsResponseTO;
+        return new ArrayList<>(bottleResponseTO);
     }
 
     public List<ProductResponseTO> getAllCrates() {
         var crates = crateService.getAllCrates();
-        List<ProductResponseTO> productsResponseTO = new ArrayList<>();
         var crateResponseTO = BEtoToConverter.convertCrateBEToTO(crates);
-        productsResponseTO.addAll(crateResponseTO);
-        return productsResponseTO;
+        return new ArrayList<>(crateResponseTO);
     }
 
 
@@ -126,7 +115,5 @@ public class BasketService {
         var order = orderService.getOrderByUserAndActive(authentication).get();
         order.setPrice(0.0);
         orderItemRepo.deleteByOrder(order);
-
     }
-
 }

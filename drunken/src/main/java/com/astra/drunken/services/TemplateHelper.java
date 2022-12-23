@@ -13,11 +13,10 @@ public class TemplateHelper {
         this.orderService = orderService;
     }
 
-    public Model defaultTemplateModel(Model model, Authentication authentication) {
+    public void defaultTemplateModel(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated() & orderService.getOrderByUserAndActive(authentication).isPresent()) {
             model.addAttribute("haveActiveCart", true);
             model.addAttribute("itemCount", orderService.getOrderByUserAndActive(authentication).get().getOrderItems().size());
         }
-        return model;
     }
 }

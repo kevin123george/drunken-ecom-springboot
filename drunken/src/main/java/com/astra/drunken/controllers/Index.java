@@ -1,6 +1,5 @@
 package com.astra.drunken.controllers;
 
-import com.astra.drunken.repositories.OrderItemRepo;
 import com.astra.drunken.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,18 +13,12 @@ public class Index {
 
     private final BottleService bottleService;
     private final BasketService basketService;
-    private final OrderService orderService;
-    private final OrderItemRepo orderItemRepo;
-    private final CrateService crateService;
     private final TemplateHelper templateHelper;
 
     @Autowired
-    public Index(BottleService bottleService, BasketService basketService, OrderService orderService, OrderItemRepo orderItemRepo, CrateService crateService, TemplateHelper templateHelper) {
+    public Index(BottleService bottleService, BasketService basketService, TemplateHelper templateHelper) {
         this.bottleService = bottleService;
         this.basketService = basketService;
-        this.orderService = orderService;
-        this.orderItemRepo = orderItemRepo;
-        this.crateService = crateService;
         this.templateHelper = templateHelper;
     }
 
@@ -46,11 +39,8 @@ public class Index {
 
     @GetMapping("/search")
     String productSearch(Model model, @RequestParam String q, Authentication authentication) {
-
         model.addAttribute("productList", bottleService.productSearch(q));
         templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
     }
-
-
 }
