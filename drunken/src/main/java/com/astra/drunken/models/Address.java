@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
@@ -17,16 +18,17 @@ public class Address {
     private Long id;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "street cannot be empty")
     private String street;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "number cannot be empty")
     private String number;
 
     @NotNull
     @NotEmpty
-    @Size(min = 5, max = 5)
+    @Size(min = 5, max = 5, message = "should only have 5 digits")
+    @Pattern(regexp = "^[0-9]*$", message = "should only have digits")
     private String postalCode;
 
     @OneToOne(mappedBy = "address")

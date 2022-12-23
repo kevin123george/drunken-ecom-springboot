@@ -24,7 +24,6 @@ public class Index {
 
     @GetMapping("/")
     String getIndex(Authentication authentication, Model model) {
-        bottleService.addRandom();
         model.addAttribute("productList", basketService.getAllProducts());
         templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
@@ -33,13 +32,12 @@ public class Index {
     @GetMapping("/add-random")
     String addRandomProducts(Authentication authentication, Model model) {
 //        basketService.addToBasket(authentication, 2L);
-        bottleService.addRandom();
         return "exp";
     }
 
     @GetMapping("/search")
     String productSearch(Model model, @RequestParam String q, Authentication authentication) {
-        model.addAttribute("productList", bottleService.productSearch(q));
+        model.addAttribute("productList", basketService.productSearch(q));
         templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
     }

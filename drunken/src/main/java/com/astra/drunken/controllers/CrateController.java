@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/crate")
-public class CarteController {
+public class CrateController {
 
     private final CrateService crateService;
     private final BasketService basketService;
     private final TemplateHelper templateHelper;
 
-    public CarteController(CrateService crateService, BasketService basketService, TemplateHelper templateHelper) {
+    public CrateController(CrateService crateService, BasketService basketService, TemplateHelper templateHelper) {
         this.crateService = crateService;
         this.basketService = basketService;
         this.templateHelper = templateHelper;

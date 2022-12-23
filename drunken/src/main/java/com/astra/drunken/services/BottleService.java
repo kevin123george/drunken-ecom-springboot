@@ -89,6 +89,9 @@ public class BottleService {
     }
 
     public Bottle saveBottle(Bottle bottle){
-        return bottleRepo.saveAndFlush(bottle);
+        if(bottle.getVolumePercent() > 0.0){
+            bottle.setIsAlcoholic(true);
+        }
+        return bottleRepo.save(bottle);
     }
 }

@@ -41,7 +41,11 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registerUserAccount(@ModelAttribute("user") User user) {
+    public String registerUserAccount(@Valid @ModelAttribute("user") User user,BindingResult error) {
+        if (error.hasErrors()){
+//            model.addAttribute("crate", );
+            return "registration";
+        }
         userService.save(user);
         return "redirect:/user/login";
     }
