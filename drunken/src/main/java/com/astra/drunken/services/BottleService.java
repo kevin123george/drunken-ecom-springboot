@@ -8,6 +8,7 @@ import com.astra.drunken.repositories.BottleRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,27 +58,33 @@ public class BottleService {
         return new ProductResponseTO(bottle.get());
     }
 
+    @Transactional
     public String addBottleToOrder(Authentication authentication, Long bottleId) {
-        // TODO: 28/11/2022  move this to a consturtor
-        // TODO: 01/12/2022  checkc add to basket only adding one item ata a rime
 
         var bottle = getProductById(bottleId).get();
-        var user = userRepo.findByUserName(authentication.getName());
-        var order = orderService.getOrderByUserAndActive(user.get());
-        var orderItem = new OrderItem();
-        var beverage = new Beverage();
-        var orderItems = order.getOrderItems();
-        beverage.setBottle(bottle);
-        orderItem.setBeverage(beverage);
-        orderItem.setOrder(order);
-        orderItem.setPrice(bottle.getPrice());
-        orderItems.add(orderItem);
-        beverage.setOrderItem(orderItem);
-        order.setOrderItems(orderItems);
-        order.setPrice(order.getPrice() + orderItem.getPrice());
-        orderService.savOrder(order);
-        return "item added to cart";
+        if (bottle.getInStock() > 0) {
+            var user = userRepo.findByUserName(authentication.getName());
+            var order = orderService.getOrderByUserAndActive(user.get());
+            var orderItem = new OrderItem();
+            var beverage = new Beverage();
+            var orderItems = order.getOrderItems();
+            beverage.setBottle(bottle);
+            orderItem.setBeverage(beverage);
+            orderItem.setOrder(order);
+            orderItem.setPrice(bottle.getPrice());
+            orderItems.add(orderItem);
+            beverage.setOrderItem(orderItem);
+            order.setOrderItems(orderItems);
+            order.setPrice(order.getPrice() + orderItem.getPrice());
+            orderService.savOrder(order);
 
+            bottle.setInStock(bottle.getInStock() - 1);
+            bottleRepo.save(bottle);
+            return "item added to cart";
+
+        }
+        else{
+            return "Item not in stock";
+        }
     }
-
 }

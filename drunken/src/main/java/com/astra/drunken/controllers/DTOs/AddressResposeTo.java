@@ -18,7 +18,6 @@ public class AddressResposeTo {
 
     public AddressResposeTo(User user) {
 
-//        Optional.ofNullable(System.getProperty("property")).orElse(defaultValue);
         if (user.getAddress() != null) {
 
             this.street = user.getAddress().getStreet() == null ? "XYZ Street" : user.getAddress().getStreet();

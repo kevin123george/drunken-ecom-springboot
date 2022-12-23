@@ -17,10 +17,8 @@ public class BottleController {
 
     private final BottleService bottleService;
     private final BasketService basketService;
-
     private final TemplateHelper templateHelper;
 
-    @Autowired
     public BottleController(BottleService bottleService, BasketService basketService, TemplateHelper templateHelper) {
         this.bottleService = bottleService;
         this.basketService = basketService;
@@ -50,6 +48,4 @@ public class BottleController {
         templateHelper.defaultTemplateModel(model, authentication);
         return "exp";
     }
-
-
 }
