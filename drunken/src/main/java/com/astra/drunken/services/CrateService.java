@@ -1,6 +1,7 @@
 package com.astra.drunken.services;
 
 import com.astra.drunken.controllers.DTOs.ProductResponseTO;
+import com.astra.drunken.models.Beverage;
 import com.astra.drunken.models.Crate;
 import com.astra.drunken.models.OrderItem;
 import com.astra.drunken.repositories.CrateRepo;
@@ -31,7 +32,11 @@ public class CrateService {
         return crateRepo.findAll();
     }
 
-    public Optional<Crate> getProductById(Long id) {
+    public ProductResponseTO getProductById(Long id) {
+        return new ProductResponseTO(crateRepo.findById(id).get());
+    }
+
+    public Optional<Crate> getCrateById(Long id) {
         return crateRepo.findById(id);
     }
 
@@ -42,7 +47,7 @@ public class CrateService {
 
     }
 
-    public ProductResponseTO getBottleTo(Long id) {
+    public ProductResponseTO getCrateTo(Long id) {
         var crate = crateRepo.findById(id);
         return new ProductResponseTO(crate.get());
     }
@@ -58,18 +63,24 @@ public class CrateService {
         // TODO: 28/11/2022  move this to a consturtor
         // TODO: 01/12/2022  checkc add to basket only adding one item ata a rime
 
-        var crate = getProductById(crateId).get();
+        var crate = getCrateById(crateId).get();
         if(crate.getCrateInStock() > 0){
             var user = userRepo.findByUserName(authentication.getName());
             var order = orderService.getOrderByUserAndActive(user.get());
             var orderItem = new OrderItem();
+            var beverage = new Beverage();
             var orderItems = order.getOrderItems();
+            beverage.setCrate(crate);
             orderItem.setOrder(order);
             orderItem.setPrice(crate.getPrice());
             orderItems.add(orderItem);
             order.setOrderItems(orderItems);
             crate.setCrateInStock(crate.getCrateInStock()-1);
+            orderItem.setBeverage(beverage);
+            beverage.setOrderItem(orderItem);
             orderService.savOrder(order);
+            crateRepo.save(crate);
+
         }
 
     }

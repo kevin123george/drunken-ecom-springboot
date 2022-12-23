@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 @NoArgsConstructor
 @Data
@@ -21,7 +23,8 @@ public class Crate {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Invalid Input")
+    @NotEmpty(message = "name cannot be empty")
+    @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Only containing letters and digits")
     private String name;
 
 //    @URL
@@ -29,10 +32,10 @@ public class Crate {
     @Pattern(regexp = "(https:\\/\\/).*\\.(?:jpg|gif|png)", message = "must be a valid URL to picture")
     private String cratePic;
 
-    @Min(0)
+    @Min(1)
     private int noOfBottles;
 
-    @Min(0)
+    @Positive(message = "price must be positive , greater than 0")
     private double price;
 
     @Min(0)

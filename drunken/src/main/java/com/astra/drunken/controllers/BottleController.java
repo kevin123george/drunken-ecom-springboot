@@ -27,6 +27,7 @@ public class BottleController {
 
     @GetMapping("/{id}")
     String productDetails(Authentication authentication, Model model, @PathVariable Long id) {
+        model.addAttribute("itemType", 1);
         model.addAttribute("product", bottleService.getBottleTo(id));
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";

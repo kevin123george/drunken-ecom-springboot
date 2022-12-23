@@ -15,11 +15,11 @@ public class Beverage {
     private Long id;
     @OneToOne
     @JoinColumn(name = "crateId", referencedColumnName = "id")
-    private Crate crate;
+    private Crate crate = null;
 
     @OneToOne
     @JoinColumn(name = "bottleId", referencedColumnName = "id")
-    private Bottle bottle;
+    private Bottle bottle = null;
 
     @OneToOne
     @JoinColumn(name = "orderItem", referencedColumnName = "id")

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 @NoArgsConstructor
 @Data
@@ -24,12 +25,12 @@ public class Bottle {
     private Long id;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "name cannot be empty")
     @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Only containing letters and digits")
     private String name;
 
 
-    @URL
+    @Pattern(regexp = "(https:\\/\\/).*\\.(?:jpg|gif|png)", message = "must be a valid URL to picture")
     private String bottlePic;
 
     @Min(value = 0, message = "volume cannot be negative ")
@@ -39,10 +40,10 @@ public class Bottle {
 
     private Double volumePercent = 0.0;
 
-    @Min(0)
+    @Positive(message = "price must be positive , greater than 0")
     private Double price;
 
-    @NotEmpty
+    @NotEmpty(message = "should have a supplier")
     @NotNull
     private String supplier;
 

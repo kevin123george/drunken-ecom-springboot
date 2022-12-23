@@ -18,7 +18,7 @@
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
 
-                    <img th:src="${product.bottlePic}" class="img-fluid" alt="">
+                    <img th:if="${product.bottlePic != null}" th:src="${product.bottlePic}" class="img-fluid" alt="">
 
                 </div>
                 <!--Grid column-->
@@ -35,25 +35,38 @@
                             </a>
 
                         </div>
-                        <label>Items in stock : </label>
-                        <span th:text="${product.inStock}"> </span>
 
 
-                        <p class="lead">
 
-                            <label>Price :
-                            </label> <span th:text="${product.price}"></span>
+                        <label>Price :
+                        </label> <span th:text="${product.price}"></span>
+                        <br>
+                        <label>Volume :
+                        </label> <span th:text="${product.volume}"></span>
+                        <br>
 
+                        <label>Alcohol percentage : <span th:text="${product.volumePercent}"></span>
+                            <br>
+                            <label>Items in stock : </label>
+                            <span th:if="${product.inStock != 0}"
+                                  th:text="${product.inStock}"> </span>
+                            <span
+                                    th:if="${product.crateInStock != 0}"
+                                    th:text="${product.crateInStock}"> </span>
+                            <br>
+                            <label>supplier : <span th:text="${product.supplier}"></span>
 
-                        </p>
+                                <br>
+                                <label>contain alcohol : </label><span th:text="${product.isAlcoholic}"></span>
 
-                        <!--                        <p class="lead font-weight-bold">Description</p>-->
+<br>
+                                <!--                        <p class="lead font-weight-bold">Description</p>-->
 
-
-                        <a th:href="@{/}+${product.productType}+@{/add/}+${product.id}"
-                           class="btn btn-primary btn-md my-0 p">Add to cart
-                            <i class="fas fa-shopping-cart ml-1"></i>
-                        </a>
+</p>
+                                <a th:href="@{/}+${product.productType}+@{/add/}+${product.id}"
+                                   class="btn btn-primary btn-md my-0 p">Add to cart
+                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                </a>
 
 
                     </div>

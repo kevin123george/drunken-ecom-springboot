@@ -1,22 +1,21 @@
 package com.astra.drunken.services;
 
 import com.astra.drunken.controllers.DTOs.ProductResponseTO;
+import com.astra.drunken.models.Bottle;
 import com.astra.drunken.models.Order;
 import com.astra.drunken.models.OrderItem;
+import com.astra.drunken.repositories.BottleRepo;
+import com.astra.drunken.repositories.CrateRepo;
 import com.astra.drunken.repositories.OrderItemRepo;
 import com.astra.drunken.repositories.OrderRepo;
-import com.astra.drunken.repositories.UserRepo;
 import com.astra.drunken.utils.BEtoToConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BasketService {
@@ -24,15 +23,20 @@ public class BasketService {
     private final BottleService bottleService;
     private final OrderRepo orderRepo;
     private final OrderItemRepo orderItemRepo;
+    private final BottleRepo bottleRepo;
+    private final CrateRepo crateRepo;
+
     private final CrateService crateService;
     private final OrderService orderService;
 
 
     @Autowired
-    public BasketService(BottleService bottleService, OrderRepo orderRepo, OrderItemRepo orderItemRepo, CrateService crateService, OrderService orderService) {
+    public BasketService(BottleService bottleService, OrderRepo orderRepo, OrderItemRepo orderItemRepo, BottleRepo bottleRepo, CrateRepo crateRepo, CrateService crateService, OrderService orderService) {
         this.bottleService = bottleService;
         this.orderRepo = orderRepo;
         this.orderItemRepo = orderItemRepo;
+        this.bottleRepo = bottleRepo;
+        this.crateRepo = crateRepo;
         this.crateService = crateService;
         this.orderService = orderService;
     }
@@ -137,5 +141,14 @@ public class BasketService {
             crate.setCrateInStock(crate.getCrateInStock() +1);
             crateService.saveCrate(crate);
         }
+    }
+
+    public List<ProductResponseTO> productSearch(String q) {
+        List<ProductResponseTO> productsResponseTO = new ArrayList<>();
+        var bottleResponseTO = BEtoToConverter.convertBottleBEToTO(bottleRepo.findByNameContaining(q));
+        var crateResponseTO = BEtoToConverter.convertCrateBEToTO(crateRepo.findByNameContaining(q));
+        productsResponseTO.addAll(bottleResponseTO);
+        productsResponseTO.addAll(crateResponseTO);
+        return productsResponseTO;
     }
 }

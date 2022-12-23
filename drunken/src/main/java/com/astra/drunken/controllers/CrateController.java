@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/crate")
-public class CarteController {
+public class CrateController {
 
     private final CrateService crateService;
     private final BasketService basketService;
     private final TemplateHelper templateHelper;
 
-    public CarteController(CrateService crateService, BasketService basketService, TemplateHelper templateHelper) {
+    public CrateController(CrateService crateService, BasketService basketService, TemplateHelper templateHelper) {
         this.crateService = crateService;
         this.basketService = basketService;
         this.templateHelper = templateHelper;
@@ -26,17 +26,19 @@ public class CarteController {
 
     @GetMapping("/{id}")
     String productDetails(Authentication authentication, Model model, @PathVariable Long id) {
-        model.addAttribute("product", crateService.getBottleTo(id));
+        model.addAttribute("product", crateService.getCrateTo(id));
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";
     }
 
     @GetMapping("/add/{id}")
     String addToBasket(Authentication authentication, Model model, @PathVariable Long id) {
-        model.addAttribute("product", crateService.getProductById(id).get());
+        model.addAttribute("product", crateService.getCrateTo(id));
+        model.addAttribute("itemType", 0);
         crateService.addCrateToOrder(authentication, id);
         templateHelper.defaultTemplateModel(model, authentication);
         return "product-page";
+
     }
 
     @GetMapping("")
