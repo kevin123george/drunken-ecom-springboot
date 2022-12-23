@@ -30,3 +30,6 @@ default port : 8080
 
 ## Good to have
 may be write test cases 
+
+## Relase latest (before dead line that is before dec 23 11:55pm  :D)
+https://gitlab.rz.uni-bamberg.de/dsg/dsam/group7/-/tags/Latest
