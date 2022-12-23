@@ -24,7 +24,9 @@ public class Crate {
     @Pattern(regexp = "^[A-Za-z-0-9]*$", message = "Invalid Input")
     private String name;
 
-    @URL
+//    @URL
+    @NotNull
+    @Pattern(regexp = "(https:\\/\\/).*\\.(?:jpg|gif|png)", message = "must be a valid URL to picture")
     private String cratePic;
 
     @Min(0)

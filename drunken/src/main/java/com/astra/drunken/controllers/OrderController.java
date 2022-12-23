@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/orders/")
@@ -40,11 +41,17 @@ public class OrderController {
 
     @GetMapping("/checkout/{id}")
     String orderSummary(Authentication authentication, @PathVariable Long id, Model model) {
+        templateHelper.defaultTemplateModel(model, authentication);
         if (!orderService.doIhaveAddress(authentication)) {
             return "redirect:/user/profile/add/address";
         }
+        if( model.getAttribute("itemCount") != null &
+                ((int) model.getAttribute("itemCount")) == 0 ){
+            var msg = "PSST!!! your cart is empty";
+            model.addAttribute("message", msg);
+            return "redirect:/orders/order-summary/";
+        }
         orderService.checkoutOrder(authentication, id);
-        templateHelper.defaultTemplateModel(model, authentication);
         return "redirect:/";
     }
 
@@ -53,9 +60,8 @@ public class OrderController {
     String removeOrderItem(Authentication authentication, @PathVariable Long itemId, Model model) {
         try {
             basketService.removeItem(authentication, itemId);
-            model.addAttribute("message", "item deleted");
             templateHelper.defaultTemplateModel(model, authentication);
-            return "redirect:/orders/order-summary/";
+            return "redirect:/orders/order-summary/?msg="+"item deleted";
         } catch (Exception ex) {
             templateHelper.defaultTemplateModel(model, authentication);
             return "redirect:/orders/order-summary/";

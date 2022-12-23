@@ -7,14 +7,10 @@
     <title>order</title>
 </head>
 <body>
-<main layout:fragment="content">
-
-    <div th:if="${successMsg}">
-        <div th:text="${successMsg}" class="alert alert-danger">Invalid username or
-            password.
-        </div>
-    </div>
-    <div class="container">
+<div layout:fragment="content">
+    <main class="mt-5 pt-4">
+    <div class="">
+        <div class="container dark-grey-text mt-5">
         <div class="row">
             <div class="col-70">
                 <div class="table-responsive text-nowrap">
@@ -28,9 +24,6 @@
                             <th scope="col"><a th:href="@{/orders/remove/all}"><i
                                     class="fa fa-trash"></i></a>
                             </th>
-
-                            <!--                    <th scope="col">Quantity</th>-->
-                            <!--                    <th scope="col">Total Item Price</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -49,30 +42,14 @@
                                        th:text=" ${product.beverage.crate.name}"
                                        th:href="@{'/crate/'} + ${product.beverage.crate.id}"></a>
                                 </td>
-                                <!--                                <td >-->
-                                <!--                                    th:text="${product.beverage.crate.name != null} ? ${product.beverage.crate.name} : ${product.beverage.bottle.name}"-->
-                                <!--                                    <a th:text="${product.beverage.crate?.name}"  class="fa fa-link"  th:href="@{/bottle/} +${product.beverage.crate?.id}"></a>-->
-                                <!--                                </td>-->
+
 
                                 <td th:text="${product.price}"></td>
                                 <td>
                                     <a th:href="@{/orders/remove/}+${product.id}"><i
                                             class="fa fa-trash"></i></a>
                                 </td>
-                                <!--                    <td th:text="${product.isAlcoholic}">-->
-                                <!--                        {% if order_item.item.discount_price %}-->
-                                <!--                        {{ order_item.get_total_discount_item_price }}-->
-                                <!--                        <span class="badge badge-primary">Saving {{ order_item.get_amount_saved }}</span>-->
-                                <!--                        {% else %}-->
-                                <!--                        {{ order_item.get_total_item_price }}-->
-                                <!--                        {% endif %}-->
-                                <!--                        <a style='color: red;' href="{% url 'remove-from-cart' order_item.item.slug %}">-->
-                                <!--                            <b class="fas  float-right">x</b>-->
-                                <!--                        </a>-->
-                                <!--                        <a href="#">-->
-                                <!--                            <span class="glyphicon glyphicon-remove" sdfsdf></span>-->
-                                <!--                        </a>-->
-                                <!--                    </td>-->
+
                             </tr>
                             <tr>
                                 <td>Total</td>
@@ -89,26 +66,6 @@
                             </tr>
                         </div>
 
-
-                        <!--                <tr>-->
-                        <!--                    <td colspan="5">-->
-                        <!--                        <a class="btn essence-btn" href='/'>Continue shopping</a>-->
-                        <!--                    </td>-->
-                        <!--                </tr>-->
-
-                        <!--                {% endfor %}-->
-                        <!--                {% load cart_template_tags %}-->
-
-                        <!--                {% if object.get_total > 0 %}-->
-
-                        <!--                <tr>-->
-                        <!--                    <td colspan="5">-->
-                        <!--                        <a class='btn essence-btn float-right ml-2' th:href="+@{/orders/checkout/}+${orderItems.orderId}" target="_blank"-->
-                        <!--                           style="margin: 1%">Proceed to checkout</a>-->
-                        <!--                        <a class='btn essence-btn float-right' href='/' style="margin: 1%">Continue shopping</a>-->
-                        <!--                    </td>-->
-                        <!--                </tr>-->
-                        <!--                {% endif %}-->
                         </tbody>
                     </table>
 
@@ -138,12 +95,11 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
-    </div>
-
-    </div>
-</main>
-{% endblock %}
-
+    </main>
+</div>
+</body>
+</html>
 
 

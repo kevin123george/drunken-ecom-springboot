@@ -87,4 +87,8 @@ public class BottleService {
             return "Item not in stock";
         }
     }
+
+    public Bottle saveBottle(Bottle bottle){
+        return bottleRepo.saveAndFlush(bottle);
+    }
 }

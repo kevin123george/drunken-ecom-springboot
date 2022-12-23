@@ -1,0 +1,84 @@
+<!--Main layout-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <title>add bottle</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <form th:action="@{/shopkeeper/bottle}" method="post" th:object="${bottle}"
+          style="margin-left:20%;margin-right:20%;margin-top:2%">
+        <h1 style="margin-top: 2%"><b>Add Bottle</b></h1>
+
+        <div class="form-group">
+            <label class="control-label" for="name"> name </label>
+            <input id="name" class="form-control" th:field="*{name}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="bottlePic"> bottlePic URL </label>
+            <input id="bottlePic" class="form-control" th:field="*{bottlePic}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('bottlePic')}" th:errors="*{bottlePic}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="volume"> volume </label>
+            <input id="volume" class="form-control" th:field="*{volume}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="volumePercent"> volume Percent </label>
+            <input id="volumePercent" class="form-control" th:field="*{volumePercent}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('volumePercent')}" th:errors="*{volumePercent}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="price"> price </label>
+            <input id="price" class="form-control" th:field="*{price}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="supplier"> supplier </label>
+            <input id="supplier" class="form-control" th:field="*{supplier}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('supplier')}" th:errors="*{supplier}">
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="inStock"> item in stock </label>
+            <input id="inStock" class="form-control" th:field="*{inStock}"
+                   required autofocus="autofocus"/>
+            <p  th:if="${#fields.hasErrors('inStock')}" th:errors="*{inStock}">
+
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary py-3 px-5">
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
