@@ -3,12 +3,14 @@
 an ecommerce website to sell liqures 
 
 ## How to
-to run application first we need to set up our data base, personaly prefrere postgress but we can also opt for H2
-on application properties un comment postgress configuration to use postgres for h2 comment postgress config and uncomment H2
+To run the application first we need to set up our database. Personally, I prefer Postgres but we can also opt for H2
 
-please not we need to create postgres db if you are using postgress 
-and on initial run 
-spring.jpa.hibernate.ddl-auto should be create 
+In application properties, uncomment the Postgres configuration to use Postgres for H2. Comment on Postgres configuration and uncomment H2
+
+
+Please note we need to create Postgres DB if you are using Postgres and on the initial run spring.jpa.hibernate.ddl-auto should be create
+
+##  Db Desing
 
 
 
