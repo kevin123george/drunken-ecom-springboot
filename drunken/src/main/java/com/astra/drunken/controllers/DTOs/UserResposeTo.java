@@ -5,17 +5,19 @@ import com.astra.drunken.models.User;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Data
 public class UserResposeTo {
 
     private String userName;
     private Date birthDate;
-    private Address address;
+    private Set<Address> address;
 
     public UserResposeTo(User user) {
         this.userName = user.getUserName();
         this.birthDate = user.getBirthDate();
-        this.address = user.getAddress();
+        if(user.getAddress().size() == 0) this.address = null;
+        else this.address = user.getAddress();
     }
 }

@@ -33,9 +33,9 @@ public class User {
     @Past(message = "we don't sell to time travelers  .....")
     private Date birthDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    private Set<Address> address;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("id ASC")

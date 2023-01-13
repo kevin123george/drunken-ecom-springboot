@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/orders/")
@@ -33,7 +32,9 @@ public class OrderController {
 
         var order = orderService.getOrderByUserAndActive(authentication);
         model.addAttribute("order", order.get());
-        model.addAttribute("address", userService.getUserAddressTo(authentication));
+//        model.addAttribute("address", userService.getUserAddressTo(authentication));
+        model.addAttribute("userInfo", userService.getUserTo(authentication));
+
         templateHelper.defaultTemplateModel(model, authentication);
 
         return "order_summary";
@@ -42,11 +43,19 @@ public class OrderController {
     @GetMapping("/checkout/{id}")
     String orderSummary(Authentication authentication, @PathVariable Long id, Model model) {
         templateHelper.defaultTemplateModel(model, authentication);
-        if (!orderService.doIhaveAddress(authentication)) {
-            return "redirect:/user/profile/add/address";
+        if (!orderService.doIhaveAnyAddress(authentication)) {
+            return "redirect:/user/profile/add/address/delivery";
         }
-        if( model.getAttribute("itemCount") != null &
-                ((int) model.getAttribute("itemCount")) == 0 ){
+        if (!orderService.doIhaveBillingAddress(authentication).get()) {
+            return "redirect:/user/profile/add/address/billing";
+
+        }
+        if (!orderService.doIhaveDeliveryAddress(authentication).get()) {
+            return "redirect:/user/profile/add/address/delivery";
+
+        }
+        if (model.getAttribute("itemCount") != null &
+                ((int) model.getAttribute("itemCount")) == 0) {
             var msg = "PSST!!! your cart is empty";
             model.addAttribute("message", msg);
             return "redirect:/orders/order-summary/";
@@ -61,7 +70,7 @@ public class OrderController {
         try {
             basketService.removeItem(authentication, itemId);
             templateHelper.defaultTemplateModel(model, authentication);
-            return "redirect:/orders/order-summary/?msg="+"item deleted";
+            return "redirect:/orders/order-summary/?msg=" + "item deleted";
         } catch (Exception ex) {
             templateHelper.defaultTemplateModel(model, authentication);
             return "redirect:/orders/order-summary/";
