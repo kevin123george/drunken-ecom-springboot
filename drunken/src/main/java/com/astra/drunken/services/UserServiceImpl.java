@@ -3,6 +3,7 @@ package com.astra.drunken.services;
 import com.astra.drunken.controllers.DTOs.AddressResposeTo;
 import com.astra.drunken.controllers.DTOs.UserResposeTo;
 import com.astra.drunken.models.Address;
+import com.astra.drunken.models.AddressType;
 import com.astra.drunken.models.User;
 import com.astra.drunken.repositories.AddressRepo;
 import com.astra.drunken.repositories.UserRepo;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,9 +45,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public AddressResposeTo getUserAddressTo(Authentication authentication) {
+    public AddressResposeTo getUserAddressTo(Authentication authentication, AddressType addressType) {
         var user = userRepo.findByUserName(authentication.getName());
-        return new AddressResposeTo(user.get());
+        return new AddressResposeTo(user.get(), addressType);
     }
 
     @Transactional
@@ -60,8 +62,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User editAddress(Address address, Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
+        var currentAddress = user.get().getAddress();
+        var d = currentAddress.stream().filter(a ->
+            address.getAddressType() == a.getAddressType()
+        );
+        currentAddress.remove(d);
+        currentAddress.add(address);
+
 //        address.setUser(user.get());
-        user.get().setAddress(address);
+        user.get().setAddress(currentAddress);
         return userRepo.save(user.get());
 //        return userRepo.save(user.get());
 

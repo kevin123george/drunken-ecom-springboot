@@ -1,6 +1,7 @@
 package com.astra.drunken.controllers;
 
 import com.astra.drunken.models.Address;
+import com.astra.drunken.models.AddressType;
 import com.astra.drunken.models.User;
 import com.astra.drunken.services.OrderService;
 import com.astra.drunken.services.TemplateHelper;
@@ -64,19 +65,38 @@ public class UserController {
         return "profile";
     }
 
-    @GetMapping("/profile/add/address")
-    public String addAddressForm(Authentication authentication, Model model) {
-        model.addAttribute("address", userService.getUserAddressTo(authentication));
+    @GetMapping("/profile/add/address/billing")
+    public String addBillingAddress(Authentication authentication, Model model) {
+        model.addAttribute("address", userService.getUserAddressTo(authentication, AddressType.billing));
         templateHelper.defaultTemplateModel(model, authentication);
-        return "edit-address";
+        return "edit-billing-address";
     }
 
-    @PostMapping("/profile/add/address")
-    public String addAddress(Authentication authentication, @Valid @ModelAttribute("address") Address address, BindingResult error, Model model) {
+    @GetMapping("/profile/add/address/delivery")
+    public String addDeliveryAddress(Authentication authentication, Model model) {
+        model.addAttribute("address", userService.getUserAddressTo(authentication, AddressType.delivery));
+        templateHelper.defaultTemplateModel(model, authentication);
+        return "edit-delivery-address";
+    }
+
+    @PostMapping("/profile/add/address/delivery")
+    public String addDeliveryAddress(Authentication authentication, @Valid @ModelAttribute("address") Address address, BindingResult error, Model model) {
         if (error.hasErrors()){
 //            model.addAttribute("crate", );
-            return "edit-address";
+            return "edit-delivery-address";
         }
+        address.setAddressType(AddressType.delivery);
+        userService.editAddress(address, authentication);
+        templateHelper.defaultTemplateModel(model, authentication);
+        return "redirect:/user/profile";
+    }
+
+    @PostMapping("/profile/add/address/billing")
+    public String addBillingAddress(Authentication authentication, @Valid @ModelAttribute("address") Address address, BindingResult error, Model model) {
+        if (error.hasErrors()){
+            return "edit-billing-address";
+        }
+        address.setAddressType(AddressType.billing);
         userService.editAddress(address, authentication);
         templateHelper.defaultTemplateModel(model, authentication);
         return "redirect:/user/profile";

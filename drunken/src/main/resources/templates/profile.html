@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-70" style="margin-left: 5%">
-                <div style="margin-left: 10%">
+                <div>
 
                     <h1 style="margin-top: 2%"><b>Profile</b></h1>
                     <br/>
@@ -27,33 +27,41 @@
                     <div class="form-group"></div>
                     <a class="btn essence-btn ml-2" href="/user/profile/edit">edit profile</a>
                 </div>
-                <div style="margin-left: 10%">
+                <div >
 
                     <h1 style="margin-top: 2%"><b>Addresses</b></h1>
                     <div th:if="${userInfo?.address == null}">
                         No address Found please add address
                         </br>
-                        <a class="btn essence-btn ml-2" href="/user/profile/add/address">add address</a>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address/billing">add billing address</a>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address/delivery">add delivery address</a>
+                    </div>
+                    <div th:if="${userInfo?.address != null}" th:each="address: ${userInfo.address}">
+                        <div>
+                            Address Type :<b><span th:text="${address?.addressType}"></span></b>
+                        </div>
+                        <div>
+                            Street : <span th:text="${address?.street}"></span>
+                        </div>
+                        <div>
+                            PostalCode : <span th:text="${address?.postalCode}"></span>
+                        </div>
+
+                        <div>
+                            number : <span th:text="${address?.number}"></span>
+                        </div>
+<!--                        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>-->
+                        <br/>
                     </div>
                     <div th:if="${userInfo?.address != null}">
-                        <div>
-                            Street : <span th:text="${userInfo.address.street}"></span>
-                        </div>
-                        <div>
-                            PostalCode : <span th:text="${userInfo.address.postalCode}"></span>
-                        </div>
-
-                        <div>
-                            number : <span th:text="${userInfo?.address.number}"></span>
-                        </div>
-                        <a class="btn essence-btn ml-2" href="/user/profile/add/address">edit address</a>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address/billing">edit billing address</a>
+                        <a class="btn essence-btn ml-2" href="/user/profile/add/address/delivery">edit delivery address</a>
                     </div>
-
                     <br/>
                 </div>
 
             </div>
-            <div class="col-30" style="margin-left: 50%">
+<!--            <div class="col-30" style="margin-left: 50%">-->
                 <div class="table-responsive text-nowrap">
                     <h2 style="margin-top: 1%">Order Histor
                     </h2>
@@ -90,11 +98,12 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 
 
-</div>
+<!--</div>-->
 
 </div>
 

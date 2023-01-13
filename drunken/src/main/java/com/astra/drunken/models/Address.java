@@ -31,6 +31,9 @@ public class Address {
     @Pattern(regexp = "^[0-9]*$", message = "should only have digits")
     private String postalCode;
 
-    @OneToOne(mappedBy = "address")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    private AddressType addressType = AddressType.delivery;
 }

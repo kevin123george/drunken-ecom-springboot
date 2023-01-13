@@ -1,5 +1,6 @@
 package com.astra.drunken.services;
 
+import com.astra.drunken.models.AddressType;
 import com.astra.drunken.models.Order;
 import com.astra.drunken.models.User;
 import com.astra.drunken.repositories.OrderRepo;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class OrderService {
@@ -84,13 +86,41 @@ public class OrderService {
         orderRepo.save(order.get());
     }
 
-    public Boolean doIhaveAddress(Authentication authentication) {
+    public Boolean doIhaveAnyAddress(Authentication authentication) {
         var user = userRepo.findByUserName(authentication.getName());
         var address = user.get().getAddress();
         if (address == null) {
             return false;
         }
         return true;
+    }
+
+    public AtomicBoolean doIhaveBillingAddress(Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+        var address = user.get().getAddress();
+        AtomicBoolean flag = new AtomicBoolean(false);
+        if (address.size() > 0 ) {
+            address.stream().forEach(address1 -> {
+                if(address1.getAddressType() == AddressType.billing){
+                    flag.set(true);
+                }
+            });
+        }
+        return flag;
+    }
+
+    public AtomicBoolean doIhaveDeliveryAddress(Authentication authentication) {
+        var user = userRepo.findByUserName(authentication.getName());
+        var address = user.get().getAddress();
+        AtomicBoolean flag = new AtomicBoolean(false);
+        if (address.size() > 0 ) {
+            address.stream().forEach(address1 -> {
+                if(address1.getAddressType() == AddressType.delivery){
+                    flag.set(true);
+                }
+            });
+        }
+        return flag;
     }
 
     @Transactional
