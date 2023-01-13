@@ -57,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/mg/**",
                         "/user/**",
                         "/shopkeeper/**",
-                        "/img/**").permitAll()
+                        "/img/**",
+                        "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -70,7 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
-                .permitAll();
+                .permitAll()
+                .and().csrf().ignoringAntMatchers("/h2-console/**")
+                ;
+        // add this line to use H2 web console
+        http.headers().frameOptions().disable();
     }
 
 }
