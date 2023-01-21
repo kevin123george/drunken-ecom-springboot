@@ -5,10 +5,12 @@ import com.astra.drunken.controllers.DTOs.UserResposeTo;
 import com.astra.drunken.models.Address;
 import com.astra.drunken.models.AddressType;
 import com.astra.drunken.models.User;
+import com.astra.drunken.models.Role;
 import com.astra.drunken.repositories.AddressRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,20 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
 
-    private final AddressRepo addressRepo;
-
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepo userRepo, AddressRepo addressRepo, BCryptPasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
-        this.addressRepo = addressRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -85,13 +86,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        var user = userRepo.findByUserName(username);
-        if (user.isEmpty()) {
+        User user = userRepo.findByUserName(username).get();
+        if(user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.get().getUserName(), user.get().getPassword(), getAuthorities());
-//        return (UserDetails) user.get();
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
