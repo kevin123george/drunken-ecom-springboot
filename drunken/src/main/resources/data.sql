@@ -5,3 +5,8 @@ insert into bottle (bottle_pic, in_stock, is_alcoholic, name, price, supplier, v
 --populate crate
 insert into crate (crate_in_stock, crate_pic, name, no_of_bottles, price) values (89, 'https://images.squarespace-cdn.com/content/v1/55c8073fe4b02a74ffe18e48/1628558331337-RE95FIEDLQFOA0ZNZOGK/ddvz54w-1c415202-7e48-4ee6-a51e-9c75904b4a52.jpg', 'testcrate1', 4, 18)
 insert into crate (crate_in_stock, crate_pic, name, no_of_bottles, price) values (9, 'https://images.squarespace-cdn.com/content/v1/55c8073fe4b02a74ffe18e48/1628558326233-2WK0FB9PAN7V3LRLW0RS/de8ug2n-ee79821f-751c-4a58-aa12-be8ff232185d.jpg', 'testcrate2', 4, 8)
+
+--populate roles
+INSERT INTO roles(name) VALUES ('ROLE_USER')
+INSERT INTO roles(name) VALUES ('ROLE_MODERATOR')
+INSERT INTO roles(name) VALUES ('ROLE_ADMIN')

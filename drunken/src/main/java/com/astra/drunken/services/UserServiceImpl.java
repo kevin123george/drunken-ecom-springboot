@@ -2,11 +2,9 @@ package com.astra.drunken.services;
 
 import com.astra.drunken.controllers.DTOs.AddressResposeTo;
 import com.astra.drunken.controllers.DTOs.UserResposeTo;
-import com.astra.drunken.models.Address;
-import com.astra.drunken.models.AddressType;
-import com.astra.drunken.models.User;
-import com.astra.drunken.models.Role;
+import com.astra.drunken.models.*;
 import com.astra.drunken.repositories.AddressRepo;
+import com.astra.drunken.repositories.RolesRepo;
 import com.astra.drunken.repositories.UserRepo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,21 +15,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+    private final RolesRepo rolesRepo;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo, AddressRepo addressRepo, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepo userRepo, AddressRepo addressRepo, RolesRepo rolesRepo, BCryptPasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.rolesRepo = rolesRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -80,6 +77,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User registrationDto) {
         registrationDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        if (registrationDto.getRoles().isEmpty()){
+            var roles = new HashSet<Role>();
+            roles.add(rolesRepo.findByName(ERole.ROLE_USER).get());
+            registrationDto.setRoles(roles);
+
+        }
         return userRepo.save(registrationDto);
     }
 
