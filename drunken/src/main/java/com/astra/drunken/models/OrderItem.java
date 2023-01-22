@@ -14,7 +14,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Setter
 @Getter
 @Entity
-public class OrderItem {
+public class OrderItem extends DateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

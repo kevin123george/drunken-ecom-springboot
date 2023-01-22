@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-public class Beverage {
+public class Beverage extends DateAudit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
