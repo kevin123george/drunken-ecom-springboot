@@ -17,7 +17,7 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @Data
 @Entity
-public class Crate {
+public class Crate extends DateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

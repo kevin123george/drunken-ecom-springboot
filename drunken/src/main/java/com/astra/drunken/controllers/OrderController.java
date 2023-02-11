@@ -4,12 +4,16 @@ import com.astra.drunken.services.BasketService;
 import com.astra.drunken.services.OrderService;
 import com.astra.drunken.services.TemplateHelper;
 import com.astra.drunken.services.UserService;
+import com.lowagie.text.DocumentException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/orders/")
@@ -41,19 +45,19 @@ public class OrderController {
     }
 
     @GetMapping("/checkout/{id}")
-    String orderSummary(Authentication authentication, @PathVariable Long id, Model model) {
+    String orderSummary(Authentication authentication, @PathVariable Long id, Model model) throws ExecutionException, InterruptedException, DocumentException, IOException {
         templateHelper.defaultTemplateModel(model, authentication);
-        if (!orderService.doIhaveAnyAddress(authentication)) {
-            return "redirect:/user/profile/add/address/delivery";
-        }
-        if (!orderService.doIhaveBillingAddress(authentication).get()) {
-            return "redirect:/user/profile/add/address/billing";
-
-        }
-        if (!orderService.doIhaveDeliveryAddress(authentication).get()) {
-            return "redirect:/user/profile/add/address/delivery";
-
-        }
+//        if (!orderService.doIhaveAnyAddress(authentication)) {
+//            return "redirect:/user/profile/add/address/delivery";
+//        }
+//        if (!orderService.doIhaveBillingAddress(authentication).get()) {
+//            return "redirect:/user/profile/add/address/billing";
+//
+//        }
+//        if (!orderService.doIhaveDeliveryAddress(authentication).get()) {
+//            return "redirect:/user/profile/add/address/delivery";
+//
+//        }
         if (model.getAttribute("itemCount") != null &
                 ((int) model.getAttribute("itemCount")) == 0) {
             var msg = "PSST!!! your cart is empty";
@@ -92,9 +96,10 @@ public class OrderController {
     }
 
     @GetMapping("/checkout/{id}/summery")
-    String orderProcess(Authentication authentication, @PathVariable Long id, Model model) {
+    String orderProcess(Authentication authentication, @PathVariable Long id, Model model) throws ExecutionException, InterruptedException, DocumentException, IOException {
         orderService.checkoutOrder(authentication, id);
         templateHelper.defaultTemplateModel(model, authentication);
         return "checkout";
     }
+
 }

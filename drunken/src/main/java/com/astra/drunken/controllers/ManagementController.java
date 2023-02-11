@@ -5,6 +5,9 @@ import com.astra.drunken.models.Bottle;
 import com.astra.drunken.models.Crate;
 import com.astra.drunken.services.BottleService;
 import com.astra.drunken.services.CrateService;
+import com.astra.drunken.services.OrderService;
+import com.astra.drunken.services.TemplateHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,17 +18,19 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/shopkeeper")
-public class ProductMangementController {
+public class ManagementController {
 
     private final CrateService crateService;
     private final BottleService bottleService;
+    private final OrderService orderService;
 
-    private Crate crate;
 
-    public ProductMangementController(CrateService crateService, BottleService bottleService) {
+    public ManagementController(CrateService crateService, BottleService bottleService, OrderService orderService) {
         this.crateService = crateService;
         this.bottleService = bottleService;
+        this.orderService = orderService;
     }
+
 
 //    @PostMapping( value = "/carte")
 //    public ResponseEntity<Crate> addCrate(@RequestBody Crate crate) {
@@ -39,15 +44,17 @@ public class ProductMangementController {
 //    }
 
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/bottle")
     public String addBottle(Authentication authentication, Model model) {
-        model.addAttribute("bottle",new Bottle());
+        model.addAttribute("bottle", new Bottle());
         return "add-product";
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/bottle")
     public String addBottle(Authentication authentication, @Valid @ModelAttribute("bottle") Bottle bottle, BindingResult error, Model model) {
-        if (error.hasErrors()){
+        if (error.hasErrors()) {
 //            model.addAttribute("crate", );
             return "add-product";
         }
@@ -55,20 +62,30 @@ public class ProductMangementController {
         return "redirect:/";
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/crate")
     public String addCrate(Authentication authentication, Model model) {
-        model.addAttribute("crate",new Crate());
+        model.addAttribute("crate", new Crate());
         return "add-crate";
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/crate")
     public String addCrate(Authentication authentication, @Valid @ModelAttribute("crate") Crate crate, BindingResult error, Model model) {
-        if (error.hasErrors()){
+        if (error.hasErrors()) {
 //            model.addAttribute("crate", );
             return "add-crate";
         }
         crateService.saveCrate(crate);
         return "redirect:/";
+    }
+
+    @PreAuthorize("hasRole('MODERATOR')")
+    @GetMapping("/orders")
+    String orderSummary(Authentication authentication, Model model) {
+        var order = orderService.getAllOders();
+        model.addAttribute("order", order);
+        return "manage_order";
     }
 
 

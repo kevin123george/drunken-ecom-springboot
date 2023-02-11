@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @Data
 @Entity
-public class Bottle {
+public class Bottle extends DateAudit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

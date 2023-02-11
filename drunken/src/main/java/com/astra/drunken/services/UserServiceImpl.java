@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         registrationDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         if (registrationDto.getRoles().isEmpty()){
             var roles = new HashSet<Role>();
-            roles.add(rolesRepo.findByName(ERole.ROLE_USER).get());
+            roles.add(rolesRepo.findByName(ERole.ROLE_MODERATOR).get());
             registrationDto.setRoles(roles);
 
         }

@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @NamedEntityGraph(name = "graph.User.orders",
         attributeNodes = @NamedAttributeNode("orders"))
-public class User {
+public class User extends DateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

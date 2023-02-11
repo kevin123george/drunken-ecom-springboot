@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/shopkeeper/**").hasRole("MODERATOR");
         http.authorizeRequests().antMatchers(
                         "/",
                         "/search/**",
@@ -56,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/svg/**",
                         "/mg/**",
                         "/user/**",
-                        "/shopkeeper/**",
                         "/img/**",
                         "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
