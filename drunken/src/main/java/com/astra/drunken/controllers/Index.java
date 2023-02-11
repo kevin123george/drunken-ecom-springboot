@@ -14,18 +14,23 @@ public class Index {
     private final BottleService bottleService;
     private final BasketService basketService;
     private final TemplateHelper templateHelper;
+    private final GoogleCloudFileUpload googleCloudFileUpload;
 
     @Autowired
-    public Index(BottleService bottleService, BasketService basketService, TemplateHelper templateHelper) {
+    public Index(BottleService bottleService, BasketService basketService, TemplateHelper templateHelper, GoogleCloudFileUpload googleCloudFileUpload) {
         this.bottleService = bottleService;
         this.basketService = basketService;
         this.templateHelper = templateHelper;
+        this.googleCloudFileUpload = googleCloudFileUpload;
     }
 
     @GetMapping("/")
     String getIndex(Authentication authentication, Model model) {
         model.addAttribute("productList", basketService.getAllProducts());
-        templateHelper.defaultTemplateModel(model, authentication);
+            templateHelper.defaultTemplateModel(model, authentication);
+
+//            googleCloudFileUpload.upload("sdfsdf");
+
         return "exp";
     }
 
