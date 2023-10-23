@@ -1,4 +1,4 @@
-# group7 - The Drunken
+# The Drunken
 
 an ecommerce website to sell liqures 
 
